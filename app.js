@@ -7,6 +7,18 @@ const router = require('./routers/index');
 
 const app = new Koa();
 
+// 错误处理(最外层中间件)
+app.use(async (ctx, next) => {
+    try {
+        await next();
+    } catch (err) {
+        ctx.body = {
+            code: err.status || 500,
+            message: err.message
+        }
+    }
+})
+
 // 静态资源挂载
 app.use(static(path.join(__dirname + "/public")));
 

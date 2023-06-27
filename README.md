@@ -49,6 +49,8 @@ IoT-Hub-Node是一个基于 Node.js 的物联网平台，旨在连接物联网�
 - routes            // 路由文件夹
 - logs              // 日志文件夹
 - tests             // 测试文件夹
+- seeders           // 存储种子文件，用于向数据库表添加测试数据
+- migrations      //存储的是迁移文件，用于数据库及数据库表的更新
 - docs              // 文档目录
    - CONTRIBUTING.md   // 包含关于如何为项目做出贡献的准则和说明。
    - API.md            // 包含项目的应用程序编程接口（API）的文档。
