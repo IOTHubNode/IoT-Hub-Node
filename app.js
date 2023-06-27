@@ -5,9 +5,10 @@ const Koa = require("koa");
 const static = require("koa-static");
 const router = require('./routers/index');
 
+
 const app = new Koa();
 
-// 错误处理(最外层中间件)
+//错误处理(最外层中间件)
 app.use(async (ctx, next) => {
     try {
         await next();
@@ -19,15 +20,19 @@ app.use(async (ctx, next) => {
     }
 })
 
+
+
+
+
 // 静态资源挂载
 app.use(static(path.join(__dirname + "/public")));
 
 //  路由挂载
 router(app)
 
-// app.use(async (ctx) => {
-//   ctx.body = "hello koa2";
-// });
+app.use(async (ctx) => {
+  ctx.body = "hello koa2";
+});
 
 
 http.createServer(app.callback(
