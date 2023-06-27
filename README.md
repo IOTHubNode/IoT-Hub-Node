@@ -2,7 +2,7 @@
 
 ![](./logo.png)
 
-用不同的语言阅读：[English](./docs/README-EN.md) | [简体中文](./README.md) | [繁体中文](./docs/README-CHT.md)
+用不同的语言阅读：[English](./README-EN.md) | [简体中文](./README.md) | [繁体中文](./docREADME-CHT.md)
 
 ## 介绍
 
