@@ -1,0 +1,17 @@
+{
+  "compilerOptions": {
+    "target": "esnext", // 目标语言版本
+    "module": "commonjs", // 指定生成代码的模板标准
+    "rootDir": "./", // 指定输出目录, 默认是dist文件夹
+    "strict": true, // 严格模式
+    "allowSyntheticDefaultImports": true, // 没有默认导出时, 编译器会创建一个默认导出
+    "esModuleInterop": true, // 允许export= 导出, 由import from导入
+    "forceConsistentCasingInFileNames": true // 禁止对同一个文件的不一致的引用
+  },
+  "exclude": ["node_modules", "dist"],
+  "ts-node": {
+    "compilerOptions": {
+      "module": "CommonJS"
+    }
+  }
+}
