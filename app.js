@@ -21,9 +21,6 @@ app.use(async (ctx, next) => {
 })
 
 
-
-
-
 // 静态资源挂载
 app.use(static(path.join(__dirname + "/public")));
 
