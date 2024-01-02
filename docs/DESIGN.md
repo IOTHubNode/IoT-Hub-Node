@@ -21,7 +21,7 @@
 ## 架构
 
 ![IOT-Hub-Node系统架构](attachments/IOT-Hub-Node系统架构.svg)
-
+![IOT-Hub-Node系统架构](attachments/IOT-Hub-Node架构v2.png)
 ## 技术栈
 
 
