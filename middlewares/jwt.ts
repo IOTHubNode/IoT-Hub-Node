@@ -1,49 +1,49 @@
-// 请求头校验token中间件
+// // 请求头校验token中间件
 
-import Koa from 'koa'
+// import Koa from 'koa'
 
-import { CODE } from '../config/code'
+// import { CODE } from '../config/code'
 
-import { decodeToken } from '../utils/util'
+// import { decodeToken } from '../utils/util'
 
-//import { getUserInfoByIdService } from '../services/admin/user/user'
+// //import { getUserInfoByIdService } from '../services/admin/user/user'
 
-export const jwtMiddlewareDeal = async (ctx: Koa.Context, next: Koa.Next) => {
+// export const jwtMiddlewareDeal = async (ctx: Koa.Context, next: Koa.Next) => {
 
-  const token = ctx.request.headers.token
+//   const token = ctx.request.headers.token
 
-  if (typeof token === 'string') {
+//   if (typeof token === 'string') {
 
-    try {
+//     try {
 
-      let userId = decodeToken(token)
+//       let userId = decodeToken(token)
 
-      let userInfo = await getUserInfoByIdService(userId)
+//       let userInfo = await getUserInfoByIdService(userId)
 
-      if (!userInfo) {
+//       if (!userInfo) {
 
-        throw CODE.tokenFailed
+//         throw CODE.tokenFailed
 
-      } else {
+//       } else {
 
-        ctx.userId = userId
+//         ctx.userId = userId
 
-        ctx.userInfo = userInfo
+//         ctx.userInfo = userInfo
 
-      }
+//       }
 
-    } catch (error) {
+//     } catch (error) {
 
-      throw CODE.tokenFailed
+//       throw CODE.tokenFailed
 
-    }
+//     }
 
-  } else {
+//   } else {
 
-    throw CODE.tokenFailed
+//     throw CODE.tokenFailed
 
-  }
+//   }
 
-  return next()
+//   return next()
 
-}
+// }
