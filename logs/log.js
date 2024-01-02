@@ -3,7 +3,7 @@
 const path = require('path')
 const log4js = require('log4js')
 
-const { isProd } = require('./index')
+const { isProd } = require('../utils/index')
 
 
 // 日志配置对象

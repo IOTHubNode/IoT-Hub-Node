@@ -4,13 +4,18 @@
   "description": "基于node.js的通用IOT消息转发持久化平台节点",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "nodemon app.js"
+    "dev": "nodemon app.ts",
+    "test": "pm2 start config/pm2.config.js --only test",
+    "prod": "pm2 start config/pm2.config.js --only production",
+    "stop": "pm2 stop config/pm2.config.js",
+    "delete": "pm2 delete config/pm2.config.js",
+    "list": "pm2 list"
   },
   "author": "DuRuofu",
   "license": "ISC",
   "dependencies": {
     "aedes": "^0.50.0",
+    "jsonwebtoken": "^9.0.2",
     "koa": "^2.14.2",
     "koa-static": "^5.0.0",
     "log4js": "^6.9.1",
