@@ -9,8 +9,8 @@ import { getIpAddress } from './utils/util';
 import { loggerMiddleware } from './logs/log';
 import { PORT } from './config/constant';
 import { router } from './routers/index';
-
 import { errorHandler, responseHandler } from './middlewares/response';
+
 
 const app = new Koa();
 
@@ -32,6 +32,8 @@ app.use(router.routes())
 
 // Response
 app.use(responseHandler);
+
+
 
 //http server·
 const httpPort = PORT.http;

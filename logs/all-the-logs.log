@@ -1,0 +1,9 @@
+[2024-01-03T13:47:29.360] [INFO] default - GET 404 / 请求参数： {} 响应参数： undefined - 0.0.0.0 - 7ms
+[2024-01-03T13:47:29.610] [INFO] default - GET 404 /favicon.ico 请求参数： {} 响应参数： undefined - 0.0.0.0 - 1ms
+[2024-01-03T13:47:41.619] [INFO] default - GET 404 /public 请求参数： {} 响应参数： undefined - 0.0.0.0 - 1ms
+[2024-01-03T13:47:54.560] [INFO] default - GET 404 /public/logo.png 请求参数： {} 响应参数： undefined - 0.0.0.0 - 0ms
+[2024-01-03T13:47:56.836] [INFO] default - GET 404 /public/logo.png 请求参数： {} 响应参数： undefined - 0.0.0.0 - 0ms
+[2024-01-03T13:47:59.298] [INFO] default - GET 404 /public/logo.png 请求参数： {} 响应参数： undefined - 0.0.0.0 - 1ms
+[2024-01-03T13:48:16.559] [INFO] default - GET 404 /public/logo.png 请求参数： {} 响应参数： undefined - 0.0.0.0 - 1ms
+[2024-01-03T13:48:16.730] [INFO] default - GET 404 /favicon.ico 请求参数： {} 响应参数： undefined - 0.0.0.0 - 0ms
+[2024-01-03T13:48:18.803] [INFO] default - GET 404 /public/logo.png 请求参数： {} 响应参数： undefined - 0.0.0.0 - 0ms

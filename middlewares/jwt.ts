@@ -1,49 +1,47 @@
-// // 请求头校验token中间件
+// // // 请求头校验token中间件
+// import jsonwebtoken from 'jsonwebtoken'
+// import { jwtSecret } from '../../config/index'
 
-// import Koa from 'koa'
-
-// import { CODE } from '../config/code'
-
-// import { decodeToken } from '../utils/util'
-
-// //import { getUserInfoByIdService } from '../services/admin/user/user'
-
-// export const jwtMiddlewareDeal = async (ctx: Koa.Context, next: Koa.Next) => {
-
-//   const token = ctx.request.headers.token
-
-//   if (typeof token === 'string') {
-
+// export interface UserParams {
+//   username: string
+//   name?: string
+//   avatar?: string
+//   email?: string
+//   gender?: number
+//   phone?: number
+//   accessToken: string
+// }
+// export default class JwtAuth {
+//   /**
+//    * 获取用户token
+//    * @static
+//    * @param {UserParams} userData
+//    * @param {*} [options]
+//    * @return {*}  {string}
+//    * @memberof JwtAuth
+//    */
+//   public static signUserToken(userData: UserParams, options?: any): string {
 //     try {
-
-//       let userId = decodeToken(token)
-
-//       let userInfo = await getUserInfoByIdService(userId)
-
-//       if (!userInfo) {
-
-//         throw CODE.tokenFailed
-
-//       } else {
-
-//         ctx.userId = userId
-
-//         ctx.userInfo = userInfo
-
-//       }
-
+//       return jsonwebtoken.sign(userData, jwtSecret, options)
 //     } catch (error) {
-
-//       throw CODE.tokenFailed
-
+//       console.log(error)
 //     }
-
-//   } else {
-
-//     throw CODE.tokenFailed
-
 //   }
 
-//   return next()
-
+//   /**
+//    * 验证用户token值
+//    * @static
+//    * @param {string} token
+//    * @return {*}  {Object}
+//    * @memberof JwtAuth
+//    */
+//   public static verifyUserToken(token: string): any {
+//     try {
+//       const authorization = token && token.split(' ')[1]
+//       return jsonwebtoken.verify(authorization, jwtSecret)
+//     } catch (error) {
+//       console.log(error)
+//       throw { code: 401, message: 'no authorization' }
+//     }
+//   }
 // }
