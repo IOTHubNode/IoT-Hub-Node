@@ -7,3 +7,16 @@
 [2024-01-03T13:48:16.559] [INFO] default - GET 404 /public/logo.png 请求参数： {} 响应参数： undefined - 0.0.0.0 - 1ms
 [2024-01-03T13:48:16.730] [INFO] default - GET 404 /favicon.ico 请求参数： {} 响应参数： undefined - 0.0.0.0 - 0ms
 [2024-01-03T13:48:18.803] [INFO] default - GET 404 /public/logo.png 请求参数： {} 响应参数： undefined - 0.0.0.0 - 0ms
+[2024-01-03T15:12:17.896] [INFO] default - GET 404 / 请求参数： {} 响应参数： undefined - 0.0.0.0 - 5ms
+[2024-01-03T15:12:23.439] [INFO] default - GET 404 /public 请求参数： {} 响应参数： undefined - 0.0.0.0 - 1ms
+[2024-01-03T15:12:42.690] [INFO] default - GET 200 /logo.png 请求参数： {} 响应参数： {"fd":null,"path":"D:\\duruofu\\Project\\IoT-Hub\\Code\\IoT-Hub-Node\\public\\logo.png","flags":"r","mode":438,"end":null,"bytesRead":0,"closed":false,"_readableState":{"objectMode":false,"highWaterMark":65536,"buffer":{"head":null,"tail":null,"length":0},"length":0,"pipes":[],"flowing":null,"ended":false,"endEmitted":false,"reading":false,"constructed":false,"sync":true,"needReadable":false,"emittedReadable":false,"readableListening":false,"resumeScheduled":false,"errorEmitted":false,"emitClose":true,"autoDestroy":true,"destroyed":false,"errored":null,"closed":false,"closeEmitted":false,"defaultEncoding":"utf8","awaitDrainWriters":null,"multiAwaitDrain":false,"readingMore":false,"dataEmitted":false,"decoder":null,"encoding":null},"_events":{},"_eventsCount":2} - 0.0.0.0 - 2ms
+[2024-01-03T15:29:23.911] [INFO] default - GET 200 / 请求参数： {} 响应参数： "this is a users response!" - 0.0.0.0 - 7ms
+[2024-01-03T15:29:32.849] [INFO] default - GET 404 /user 请求参数： {} 响应参数： undefined - 0.0.0.0 - 2ms
+[2024-01-03T15:29:37.110] [INFO] default - GET 404 /users 请求参数： {} 响应参数： undefined - 0.0.0.0 - 1ms
+[2024-01-03T15:30:09.635] [INFO] default - GET 404 /users 请求参数： {} 响应参数： undefined - 0.0.0.0 - 2ms
+[2024-01-03T15:30:21.569] [INFO] default - GET 200 / 请求参数： {} 响应参数： "this is a users response!" - 0.0.0.0 - 1ms
+[2024-01-03T15:30:55.882] [INFO] default - GET 404 / 请求参数： {} 响应参数： undefined - 0.0.0.0 - 3ms
+[2024-01-03T15:31:04.651] [INFO] default - GET 200 /users 请求参数： {} 响应参数： "this is a users response!" - 0.0.0.0 - 3ms
+[2024-01-03T15:59:48.697] [INFO] default - GET 404 / 请求参数： {} 响应参数： undefined - 0.0.0.0 - 4ms
+[2024-01-03T15:59:51.726] [INFO] default - GET 200 /register 请求参数： {} 响应参数： "用户注册成功" - 0.0.0.0 - 2ms
+[2024-01-03T16:02:28.308] [INFO] default - GET 200 /login 请求参数： {} 响应参数： "用户登陆成功" - 0.0.0.0 - 5ms
