@@ -27,3 +27,4 @@
 [2024-01-03T16:12:39.669] [INFO] default - POST 405 /register 请求参数： {"user_name":"111","password":"11"} 响应参数： undefined - 0.0.0.0 - 1ms
 [2024-01-03T16:13:29.341] [INFO] default - POST 200 /register 请求参数： {"user_name":"111","password":"11"} 响应参数： "用户注册成功" - 0.0.0.0 - 21ms
 [2024-01-03T16:17:05.147] [INFO] default - POST 200 /register 请求参数： {"user_name":"111","password":"11"} 响应参数： "用户注册成功" - 0.0.0.0 - 3ms
+[2024-01-03T16:24:51.598] [INFO] default - POST 200 /register 请求参数： {"user_name":"111","password":"11"} 响应参数： "写入数据库成功" - 0.0.0.0 - 4ms
