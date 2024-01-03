@@ -10,18 +10,18 @@ import { getIpAddress } from '../utils/util';
 import { loggerMiddleware } from '../logs/log';
 import { errorHandler, responseHandler } from '../middlewares/response';
 
-import Usersrouter  from '../routers/users/users';
+import Usersrouter  from '../routers/users/users.router';
 
 const app = new Koa();
+
+// Parse request body middleware
+app.use(koaBody({ multipart: true }));
 
 // log middlewaress
 app.use(loggerMiddleware)
 
 // Error Handler middleware
 app.use(errorHandler);
-
-// Parse request body middleware
-app.use(koaBody({ multipart: true }));
 
 // Static resources
 app.use(Static(path.join(__dirname + '/public')));

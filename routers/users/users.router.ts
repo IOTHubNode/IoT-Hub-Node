@@ -1,9 +1,9 @@
 import Router from 'koa-router';
 const router = new Router();
-import  Controllers from '../../controllers/users/users';
+import  Controllers from '../../controllers/users/users.controller';
 
 // 用户注册
-router.get('/register',Controllers.register)
+router.post('/register',Controllers.register)
 
 
 // 用户登陆

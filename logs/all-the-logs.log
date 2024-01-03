@@ -20,3 +20,10 @@
 [2024-01-03T15:59:48.697] [INFO] default - GET 404 / 请求参数： {} 响应参数： undefined - 0.0.0.0 - 4ms
 [2024-01-03T15:59:51.726] [INFO] default - GET 200 /register 请求参数： {} 响应参数： "用户注册成功" - 0.0.0.0 - 2ms
 [2024-01-03T16:02:28.308] [INFO] default - GET 200 /login 请求参数： {} 响应参数： "用户登陆成功" - 0.0.0.0 - 5ms
+[2024-01-03T16:12:31.174] [INFO] default - POST 405 /register 请求参数： {"user_name":"111","password":"11"} 响应参数： undefined - 0.0.0.0 - 44ms
+[2024-01-03T16:12:33.220] [INFO] default - POST 405 /register 请求参数： {"user_name":"111","password":"11"} 响应参数： undefined - 0.0.0.0 - 1ms
+[2024-01-03T16:12:34.112] [INFO] default - POST 405 /register 请求参数： {"user_name":"111","password":"11"} 响应参数： undefined - 0.0.0.0 - 1ms
+[2024-01-03T16:12:37.200] [INFO] default - POST 405 /register 请求参数： {"user_name":"111","password":"11"} 响应参数： undefined - 0.0.0.0 - 0ms
+[2024-01-03T16:12:39.669] [INFO] default - POST 405 /register 请求参数： {"user_name":"111","password":"11"} 响应参数： undefined - 0.0.0.0 - 1ms
+[2024-01-03T16:13:29.341] [INFO] default - POST 200 /register 请求参数： {"user_name":"111","password":"11"} 响应参数： "用户注册成功" - 0.0.0.0 - 21ms
+[2024-01-03T16:17:05.147] [INFO] default - POST 200 /register 请求参数： {"user_name":"111","password":"11"} 响应参数： "用户注册成功" - 0.0.0.0 - 3ms
