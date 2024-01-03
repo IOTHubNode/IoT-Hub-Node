@@ -8,7 +8,7 @@ import app from './app/web';
 const httpPort = PORT.http;
 const httpServer = http.createServer(app.callback());
 httpServer.listen(httpPort);
-httpServer.on('error', (err: Error) => {
+httpServer.on('error', (err: Error) => { 
 	console.log(err);
 });
 httpServer.on('listening', () => {

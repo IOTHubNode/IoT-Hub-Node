@@ -16,6 +16,15 @@ class UserController{
         ctx.body ="用户登陆成功"
     }
 
+    async info(ctx: any, next: any){
+
+        // 操作数据库
+        const res = await UserService.getUserInfo();
+        ctx.body =res
+
+    }
+    
+
 }
 
 export default new UserController();

@@ -257,6 +257,11 @@
   dependencies:
     "debug" "^4.3.1"
 
+"@prisma/client@^5.7.1":
+  "integrity" "sha512-TUSa4nUcC4nf/e7X3jyO1pEd6XcI/TLRCA0KjkA46RDIpxUaRsBYEOqITwXRW2c0bMFyKcCRXrH4f7h4q9oOlg=="
+  "resolved" "https://registry.npmjs.org/@prisma/client/-/client-5.7.1.tgz"
+  "version" "5.7.1"
+
 "@prisma/debug@5.7.1":
   "integrity" "sha512-yrVSO/YZOxdeIxcBtZ5BaNqUfPrZkNsAKQIQg36cJKMxj/VYK3Vk5jMKkI+gQLl0KReo1YvX8GWKfV788SELjw=="
   "resolved" "https://registry.npmjs.org/@prisma/debug/-/debug-5.7.1.tgz"
@@ -3456,7 +3461,7 @@
   "resolved" "https://registry.npmjs.org/prettier/-/prettier-3.1.1.tgz"
   "version" "3.1.1"
 
-"prisma@^5.7.1":
+"prisma@*", "prisma@^5.7.1":
   "integrity" "sha512-ekho7ziH0WEJvC4AxuJz+ewRTMskrebPcrKuBwcNzVDniYxx+dXOGcorNeIb9VEMO5vrKzwNYvhD271Ui2jnNw=="
   "resolved" "https://registry.npmjs.org/prisma/-/prisma-5.7.1.tgz"
   "version" "5.7.1"

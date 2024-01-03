@@ -10,4 +10,9 @@ router.post('/register',Controllers.register)
 router.get('/login',Controllers.login)
 
 
+//用户信息
+router.get('/info',Controllers.info)
+
+
+
 export default  router;

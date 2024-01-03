@@ -5,20 +5,17 @@ import path from 'path';
 import Koa from 'koa';
 import koaBody from 'koa-body';
 import Static from 'koa-static';
-import { PORT } from '../config/constant';
-import { getIpAddress } from '../utils/util';
 import { loggerMiddleware } from '../logs/log';
 import { errorHandler, responseHandler } from '../middlewares/response';
-
 import Usersrouter  from '../routers/users/users.router';
 
 const app = new Koa();
-
+// log middlewaress
+app.use(loggerMiddleware)
 // Parse request body middleware
 app.use(koaBody({ multipart: true }));
 
-// log middlewaress
-app.use(loggerMiddleware)
+
 
 // Error Handler middleware
 app.use(errorHandler);

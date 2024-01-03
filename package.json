@@ -10,12 +10,15 @@
     "stop": "pm2 stop config/pm2.config.js",
     "delete": "pm2 delete config/pm2.config.js",
     "list": "pm2 list",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "updatadb": "npx prisma migrate dev"
+    
   },
   "author": "DuRuofu",
   "license": "ISC",
   "dependencies": {
     "@koa/router": "^12.0.1",
+    "@prisma/client": "^5.7.1",
     "aedes": "^0.50.0",
     "jsonwebtoken": "^9.0.2",
     "koa": "^2.15.0",
