@@ -15,8 +15,6 @@ app.use(loggerMiddleware)
 // Parse request body middleware
 app.use(koaBody({ multipart: true }));
 
-
-
 // Error Handler middleware
 app.use(errorHandler);
 

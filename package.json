@@ -11,7 +11,8 @@
     "delete": "pm2 delete config/pm2.config.js",
     "list": "pm2 list",
     "prepare": "husky install",
-    "updatadb": "npx prisma migrate dev"
+    "updatadb": "npx prisma migrate dev",
+    "pulldb":"npx prisma  db pull"
     
   },
   "author": "DuRuofu",
