@@ -1,6 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -10,18 +7,15 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model User {
-  id    Int     @id @default(autoincrement())
-  email String  @unique
-  name  String?
-  posts Post[]
-}
+model Account {
+  AccountId   BigInt   @id @default(autoincrement()) @map("account_id")
+  Name        String   @map("name")
+  Password    String   @map("password")
+  Email       String   @default("test@test.com") @map("email")
+  Phone       String   @default("12312341234") @map("phone")
+  IsDeleted   Boolean  @default(false) @map("is_deleted")
+  CreatedTime DateTime @default(now()) @map("created_time")
+  pdatedTime  DateTime @updatedAt @map("updated_time")
 
-model Post {
-  id        Int     @id @default(autoincrement())
-  title     String
-  content   String?
-  published Boolean @default(false)
-  author    User    @relation(fields: [authorId], references: [id])
-  authorId  Int
+  @@map("account")
 }

@@ -2,27 +2,51 @@
   "name": "iot-hub-node",
   "version": "0.0.1",
   "description": "基于node.js的通用IOT消息转发持久化平台节点",
-  "main": "app.js",
+  "main": "app.ts",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "nodemon app.js"
+    "dev": "nodemon app.ts",
+    "test": "pm2 start config/pm2.config.js --only test",
+    "prod": "pm2 start config/pm2.config.js --only production",
+    "stop": "pm2 stop config/pm2.config.js",
+    "delete": "pm2 delete config/pm2.config.js",
+    "list": "pm2 list",
+    "prepare": "husky install",
+    "updatadb": "npx prisma migrate dev",
+    "pulldb":"npx prisma  db pull"
+    
   },
   "author": "DuRuofu",
   "license": "ISC",
   "dependencies": {
+    "@koa/router": "^12.0.1",
+    "@prisma/client": "^5.7.1",
     "aedes": "^0.50.0",
-    "koa": "^2.14.2",
+    "jsonwebtoken": "^9.0.2",
+    "koa": "^2.15.0",
+    "koa-body": "^6.0.1",
+    "koa-router": "^12.0.1",
     "koa-static": "^5.0.0",
+    "koa2-swagger-ui": "^5.10.0",
     "log4js": "^6.9.1",
-    "pm2": "^5.3.0"
+    "pm2": "^5.3.0",
+    "swagger-jsdoc": "^6.2.8"
   },
   "devDependencies": {
     "@types/koa": "^2.13.12",
     "@types/koa-router": "^7.4.8",
+    "@types/koa-static": "^4.0.4",
     "@types/log4js": "^2.3.5",
-    "@types/node": "^20.10.1",
+    "@types/node": "^20.10.6",
+    "dotenv": "^16.3.1",
+    "eslint": "^8.56.0",
+    "mrm": "^2.6.2",
     "nodemon": "^2.0.22",
-    "prisma": "^5.6.0",
-    "ts-node": "^10.9.1"
+    "prettier": "^3.1.1",
+    "prisma": "^5.7.1",
+    "ts-node": "^10.9.1",
+    "tslib": "^2.6.2"
+  },
+  "lint-staged": {
+    "*.{js,css,md}": "prettier --write"
   }
 }
