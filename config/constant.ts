@@ -1,5 +1,10 @@
-//全局通用配置参数
+import dotenv from 'dotenv';
 
+// 读取环境变量
+dotenv.config();
+
+
+//全局通用配置参数
 export const ENV = {
     development: 'development',
     production: 'production'
@@ -17,3 +22,4 @@ export const PORT = {
     http:  3000,
     https: 3001
 }
+

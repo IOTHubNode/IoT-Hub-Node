@@ -1,43 +1,14 @@
-import fs from 'fs';
 import http from 'http';
-import https from 'https';
-import path from 'path';
-import Koa from 'koa';
-import koaBody from 'koa-body';
-import koa_static from 'koa-static';
-import { getIpAddress } from './utils/util';
-import { loggerMiddleware } from './logs/log';
 import { PORT } from './config/constant';
-import { router } from './routers/index';
+import { getIpAddress } from './utils/util';
+import app from './app/web';
 
-import { errorHandler, responseHandler } from './middlewares/response';
-
-const app = new Koa();
-
-// log middlewaress
-app.use(loggerMiddleware)
-
-// Error Handler
-app.use(errorHandler);
-
-// Global middleware
-app.use(koaBody({ multipart: true }));
-
-// Static resources
-app.use(koa_static(path.join(__dirname + '/public')));
-
-// Routes
-app.use(router.routes())
-   .use(router.allowedMethods())
-
-// Response
-app.use(responseHandler);
 
 //http server·
 const httpPort = PORT.http;
 const httpServer = http.createServer(app.callback());
 httpServer.listen(httpPort);
-httpServer.on('error', (err: Error) => {
+httpServer.on('error', (err: Error) => { 
 	console.log(err);
 });
 httpServer.on('listening', () => {
@@ -46,9 +17,6 @@ httpServer.on('listening', () => {
 	const localAddress = `http://localhost:${httpPort}`;
 	console.log(`app started at address:${localAddress} or ${address}`);
 });
-
-
-
 
 // //https server
 // const httpsPort = PORT.https;

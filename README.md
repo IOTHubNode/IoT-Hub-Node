@@ -34,6 +34,7 @@ IoT-Hub-Node是一个基于 Node.js 的物联网设备接入管理平台，旨�
 
 ```
 - .husky            // lint-staged自动格式化工具目录
+- app               // 应用程序层
 - bcroker           // 消息代理层
 - config            // 配置文件夹
 - controllers       // 控制器，处理路由逻辑
@@ -44,12 +45,11 @@ IoT-Hub-Node是一个基于 Node.js 的物联网设备接入管理平台，旨�
    - DESIGN.md         // 项目的设计文档，描述了项目的架构、组件、数据流和交互过程等细节。
 - logs              // 日志文件夹
 - middlewares       // 中间件，请求预处理逻辑，例如权限验证
-- models            // 数据模型，数据库交互
 - prisma            // 数据库访问ORM层
 - routes            // 路由定义
 - public            // 静态资源文件夹
 - routes            // 路由文件夹
-- services          // 业务逻辑层，处理复杂业务
+- services          // 数据服务层，处理数据库业务
 - tests             // 测试文件夹
 - utils             // 工具函数或类
 - .env              // 环境变量文件参考
