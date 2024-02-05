@@ -14,5 +14,4 @@ router.get('/login',Controllers.login)
 router.get('/info',Controllers.info)
 
 
-
 export default  router;
