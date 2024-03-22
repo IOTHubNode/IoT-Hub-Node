@@ -1,0 +1,1991 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "IOT-Hub-Node API",
+    "version": "1.0.0",
+    "summary": "test",
+    "description": "基于node.js的通用物联网平台",
+    "license": {
+      "name": "MIT",
+      "url": "https://github.com/saisilinus/node-express-mongoose-typescript-boilerplate.git"
+    },
+    "contact": {
+      "name": "API Support",
+      "url": "https://github.com/DuRuofu",
+      "email": "duruofu@qq.com"
+    }
+  },
+  "servers": [
+    {
+      "url": "http://192.168.179.1:3000/v1",
+      "description": "API V1"
+    }
+  ],
+  "components": {
+    "schemas": {},
+    "responses": {},
+    "parameters": {},
+    "securitySchemes": {
+      "token": {
+        "type": "apiKey",
+        "name": "authorization",
+        "in": "header"
+      }
+    }
+  },
+  "paths": {
+    "/account/register": {
+      "post": {
+        "summary": "用户注册",
+        "description": "用户注册",
+        "tags": [
+          "用户模块"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "OrganizationId": {
+                    "description": "团队id"
+                  },
+                  "Account": {
+                    "description": "用户账号"
+                  },
+                  "Password": {
+                    "description": "用户密码"
+                  },
+                  "Email": {
+                    "description": "用户邮箱"
+                  },
+                  "Phone": {
+                    "description": "用户手机号"
+                  },
+                  "IsDisabled": {
+                    "description": "是否禁用"
+                  },
+                  "Roles": {
+                    "description": "用户角色列表,字符串数组"
+                  }
+                },
+                "example": {
+                  "OrganizationId": "1",
+                  "Account": "1234567",
+                  "Password": "3.1415926",
+                  "Email": "123344@11.c0m",
+                  "Phone": "12912781727818",
+                  "IsDisabled": false,
+                  "Roles": [
+                    "admin",
+                    "default"
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "number",
+                      "description": "状态码",
+                      "example": 200
+                    },
+                    "massage": {
+                      "type": "string",
+                      "description": "注册信息",
+                      "example": "用户注册成功"
+                    },
+                    "data": {
+                      "type": "object",
+                      "description": "用户信息",
+                      "example": {
+                        "AccountId": "61a7125d-9439-4739-90f1-c4271a84d9d6",
+                        "OrganizationId": "126626262",
+                        "Account": "2626211",
+                        "Name": "2626211",
+                        "AvatarUrl": "https://image-1308319148.cos.ap-chengdu.myqcloud.com/main/%E4%B8%AA%E4%BA%BA%E5%A4%B4%E5%83%8F.png",
+                        "Email": "146746747647",
+                        "Phone": "1363636363",
+                        "IsDeleted": false,
+                        "CreatedTime": "2024-03-11T10:21:53.823Z",
+                        "UpdatedTime": "2024-03-11T10:21:53.823Z"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/account/login": {
+      "post": {
+        "summary": "用户登陆(用户名密码)",
+        "description": "用户登陆",
+        "tags": [
+          "用户模块"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "Account": {
+                    "description": "用户账号"
+                  },
+                  "Password": {
+                    "description": "用户密码"
+                  }
+                },
+                "example": {
+                  "Account": "11",
+                  "Password": "11"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "number",
+                      "description": "状态码",
+                      "example": 200
+                    },
+                    "massage": {
+                      "type": "string",
+                      "description": "登陆信息",
+                      "example": "用户登陆成功"
+                    },
+                    "data": {
+                      "type": "object",
+                      "description": "用户信息",
+                      "example": {
+                        "token": "Bearer eyJhbGciOiJIUzIFJ354bxO7Dw"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/account/accounts/{id}": {
+      "delete": {
+        "summary": "删除某个用户",
+        "description": "删除某个用户",
+        "tags": [
+          "用户模块"
+        ],
+        "security": [
+          {
+            "token": {}
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "description": "用户id",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "删除某个用户成功",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "code": {
+                  "type": "number",
+                  "description": "状态码",
+                  "example": 200
+                },
+                "massage": {
+                  "type": "string",
+                  "description": "查询信息",
+                  "example": "删除某个用户成功"
+                },
+                "data": {
+                  "type": "object",
+                  "description": "用户信息",
+                  "example": {
+                    "AccountId": "2c41bb7d-c0b5-41e1-aa25-859619841154",
+                    "Account": "123",
+                    "Name": "123",
+                    "AvatarUrl": "https://image-1308319148.cos.ap-chengdu.myqcloud.com/main/33.png",
+                    "Email": "123344f@11.c0m",
+                    "Phone": "129127d81727818"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "summary": "查询单个用户信息",
+        "description": "查询单个用户信息",
+        "tags": [
+          "用户模块"
+        ],
+        "security": [
+          {
+            "token": {}
+          }
+        ],
+        "parameters": [
+          {
+            "name": "Id",
+            "description": "用户id",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "查询用户信息成功",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "code": {
+                  "type": "number",
+                  "description": "状态码",
+                  "example": 200
+                },
+                "massage": {
+                  "type": "string",
+                  "description": "查询信息",
+                  "example": "查询用户信息成功"
+                },
+                "data": {
+                  "type": "object",
+                  "description": "用户信息"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "summary": "更新用户信息",
+        "description": "更新用户信息",
+        "tags": [
+          "用户模块"
+        ],
+        "security": [
+          {
+            "token": {}
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "OrganizationId": {
+                    "description": "团队id"
+                  },
+                  "Name": {
+                    "description": "用户名"
+                  },
+                  "Email": {
+                    "description": "用户邮箱"
+                  },
+                  "Phone": {
+                    "description": "用户手机号"
+                  }
+                },
+                "example": {
+                  "OrganizationId": "1",
+                  "Name": "杜若甫",
+                  "Email": "123344@11.c0m",
+                  "Phone": "12912781727818"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "查询用户信息成功",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "code": {
+                  "type": "number",
+                  "description": "状态码",
+                  "example": 200
+                },
+                "massage": {
+                  "type": "string",
+                  "description": "查询信息",
+                  "example": "查询用户信息成功"
+                },
+                "data": {
+                  "type": "object",
+                  "description": "用户信息"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/account/accounts": {
+      "get": {
+        "summary": "获取全部用户列表(不分页)",
+        "description": "查询用户列表",
+        "tags": [
+          "用户模块"
+        ],
+        "responses": {
+          "200": {
+            "description": "查询用户列表成功",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "code": {
+                  "type": "number",
+                  "description": "状态码",
+                  "example": 200
+                },
+                "massage": {
+                  "type": "string",
+                  "description": "查询信息",
+                  "example": "查询用户列表成功"
+                },
+                "data": {
+                  "type": "object",
+                  "description": "用户列表信息"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "token": {}
+          },
+          {
+            "server_auth": [
+              "authorization"
+            ]
+          }
+        ]
+      }
+    },
+    "/account/accounts/{page}/{limit}": {
+      "get": {
+        "summary": "获取用户列表(分页)",
+        "description": "查询用户列表",
+        "tags": [
+          "用户模块"
+        ],
+        "parameters": [
+          {
+            "name": "page",
+            "description": "当前页数",
+            "in": "path",
+            "type": "number",
+            "required": true
+          },
+          {
+            "name": "limit",
+            "description": "每页记录数",
+            "in": "path",
+            "type": "number",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "number",
+                      "description": "状态码",
+                      "example": 200
+                    },
+                    "massage": {
+                      "type": "string",
+                      "description": "登陆信息",
+                      "example": "查询用户列表成功"
+                    },
+                    "data": {
+                      "type": "object",
+                      "description": "用户信息",
+                      "properties": {
+                        "total": {
+                          "type": "number",
+                          "description": "总记录数",
+                          "example": 1
+                        },
+                        "records": {
+                          "type": "array",
+                          "description": "用户列表",
+                          "example": [
+                            {
+                              "AccountId": "61a7125d-9439-4739-90f1-c4271a84d9d6",
+                              "TeamId": "126626262",
+                              "Account": "2626211",
+                              "Password": "1126262",
+                              "Name": "2626211",
+                              "AvatarUrl": "https://image-1308319148.cos.ap-chengdu.myqcloud.com/main/%E4%B8%AA%E4%BA%BA%E5%A4%B4%E5%83%8F.png",
+                              "Email": "146746747647",
+                              "Phone": "1363636363",
+                              "IsDeleted": false,
+                              "CreatedTime": "2024-03-11T10:21:53.823Z",
+                              "UpdatedTime": "2024-03-11T10:21:53.823Z"
+                            }
+                          ]
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "token": {}
+          },
+          {
+            "server_auth": [
+              "authorization"
+            ]
+          }
+        ]
+      }
+    },
+    "/account/accounts/{organizationid}/{page}/{limit}": {
+      "get": {
+        "summary": "根据组织获取用户列表",
+        "description": "根据组织获取用户列表",
+        "tags": [
+          "用户模块"
+        ],
+        "parameters": [
+          {
+            "name": "organizationid",
+            "description": "组织id(全部组织为0)",
+            "in": "path",
+            "type": "number",
+            "required": true
+          },
+          {
+            "name": "page",
+            "description": "当前页数",
+            "in": "path",
+            "type": "number",
+            "required": true
+          },
+          {
+            "name": "limit",
+            "description": "每页记录数",
+            "in": "path",
+            "type": "number",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "number",
+                      "description": "状态码",
+                      "example": 200
+                    },
+                    "massage": {
+                      "type": "string",
+                      "description": "登陆信息",
+                      "example": "查询用户列表成功"
+                    },
+                    "data": {
+                      "type": "object",
+                      "description": "用户信息",
+                      "properties": {
+                        "total": {
+                          "type": "number",
+                          "description": "总记录数",
+                          "example": 1
+                        },
+                        "records": {
+                          "type": "array",
+                          "description": "用户列表",
+                          "example": [
+                            {
+                              "AccountId": "61a7125d-9439-4739-90f1-c4271a84d9d6",
+                              "TeamId": "126626262",
+                              "Account": "2626211",
+                              "Password": "1126262",
+                              "Name": "2626211",
+                              "AvatarUrl": "https://image-1308319148.cos.ap-chengdu.myqcloud.com/main/%E4%B8%AA%E4%BA%BA%E5%A4%B4%E5%83%8F.png",
+                              "Email": "146746747647",
+                              "Phone": "1363636363",
+                              "IsDeleted": false,
+                              "CreatedTime": "2024-03-11T10:21:53.823Z",
+                              "UpdatedTime": "2024-03-11T10:21:53.823Z"
+                            }
+                          ]
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "token": {}
+          },
+          {
+            "server_auth": [
+              "authorization"
+            ]
+          }
+        ]
+      }
+    },
+    "/account/account": {
+      "get": {
+        "summary": "查询单个用户信息(token验证)",
+        "description": "查询单个用户信息",
+        "tags": [
+          "用户模块"
+        ],
+        "security": [
+          {
+            "token": {}
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "查询用户信息成功",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "code": {
+                  "type": "number",
+                  "description": "状态码",
+                  "example": 200
+                },
+                "massage": {
+                  "type": "string",
+                  "description": "查询信息",
+                  "example": "查询用户信息成功"
+                },
+                "data": {
+                  "type": "object",
+                  "description": "用户信息"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/example/post": {
+      "post": {
+        "summary": "测试数据库插入",
+        "description": "测试数据库插入",
+        "tags": [
+          "数据库测试"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Name",
+            "description": "名称",
+            "in": "formData",
+            "required": true
+          },
+          {
+            "name": "Password",
+            "description": "密码",
+            "in": "formData",
+            "required": true
+          },
+          {
+            "name": "Email",
+            "description": "邮箱",
+            "in": "formData"
+          },
+          {
+            "name": "Phone",
+            "description": "手机号",
+            "in": "formData"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": null
+          }
+        }
+      }
+    },
+    "/example/delete": {
+      "delete": {
+        "summary": "测试数据库删除",
+        "description": "测试数据库删除",
+        "tags": [
+          "数据库测试"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "ExampleId",
+            "description": "测试id",
+            "in": "formData",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": null
+          }
+        }
+      }
+    },
+    "/example/get": {
+      "get": {
+        "summary": "测试数据库查询",
+        "description": "测试数据库查询",
+        "tags": [
+          "数据库测试"
+        ],
+        "responses": {
+          "200": {
+            "description": null
+          }
+        }
+      }
+    },
+    "/example/put": {
+      "put": {
+        "summary": "测试数据库更新",
+        "description": "测试数据库更新",
+        "tags": [
+          "数据库测试"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "ExampleId",
+            "description": "测试id",
+            "in": "formData",
+            "required": true
+          },
+          {
+            "name": "Name",
+            "description": "名称",
+            "in": "formData",
+            "required": true
+          },
+          {
+            "name": "Password",
+            "description": "密码",
+            "in": "formData",
+            "required": true
+          },
+          {
+            "name": "Email",
+            "description": "邮箱",
+            "in": "formData"
+          },
+          {
+            "name": "Phone",
+            "description": "手机号",
+            "in": "formData"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": null
+          }
+        }
+      }
+    },
+    "/organization/organizations": {
+      "post": {
+        "summary": "添加组织",
+        "description": "添加组织",
+        "tags": [
+          "组织管理"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "Name": {
+                    "description": "组织名称"
+                  },
+                  "Description": {
+                    "description": "组织描述"
+                  },
+                  "Level": {
+                    "description": "组织等级"
+                  },
+                  "LevelName": {
+                    "description": "组织等级名称"
+                  },
+                  "ParentId": {
+                    "description": "上级组织id"
+                  }
+                },
+                "example": {
+                  "Name": "南方分部",
+                  "Description": "无",
+                  "Level": "1",
+                  "LevelName": "二级",
+                  "ParentId": "1"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "number",
+                      "description": "状态码",
+                      "example": 200
+                    },
+                    "massage": {
+                      "type": "string",
+                      "description": "注册信息",
+                      "example": "添加组织成功"
+                    },
+                    "data": {
+                      "type": "object",
+                      "description": "用户信息",
+                      "example": {
+                        "OrganizationId": "3",
+                        "Name": "南方分部",
+                        "Description": "无",
+                        "Level": 1,
+                        "LevelName": "二级",
+                        "ParentId": "1",
+                        "CreatedBy": "4e1bb3f5-8c0b-4573-8e6f-abf93bdc4224",
+                        "CreatedTime": "2024-03-12T04:41:18.326Z"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "token": {}
+          },
+          {
+            "server_auth": [
+              "authorization"
+            ]
+          }
+        ]
+      },
+      "get": {
+        "summary": "获取组织列表(树形数据)",
+        "description": "获取组织列表",
+        "tags": [
+          "组织管理"
+        ],
+        "responses": {
+          "200": {
+            "description": "查询组织列表成功",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "code": {
+                  "type": "number",
+                  "description": "状态码",
+                  "example": 200
+                },
+                "massage": {
+                  "type": "string",
+                  "description": "查询信息",
+                  "example": "查询用户列表成功"
+                },
+                "data": {
+                  "type": "object",
+                  "description": "用户列表信息"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "token": {}
+          },
+          {
+            "server_auth": [
+              "authorization"
+            ]
+          }
+        ]
+      }
+    },
+    "/organization/organizations/{id}": {
+      "delete": {
+        "summary": "删除组织",
+        "description": "删除组织",
+        "tags": [
+          "组织管理"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "description": "组织ID",
+            "in": "path",
+            "type": "number",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "number",
+                      "description": "状态码",
+                      "example": 200
+                    },
+                    "massage": {
+                      "type": "string",
+                      "description": "信息",
+                      "example": "删除组织成功"
+                    },
+                    "data": {
+                      "type": "object",
+                      "description": "用户信息",
+                      "example": {
+                        "OrganizationId": "2",
+                        "Name": "南方分部",
+                        "Description": "无",
+                        "Level": 1,
+                        "LevelName": "二级",
+                        "ParentId": "1",
+                        "ISDisabled": false,
+                        "IsDeleted": true,
+                        "CreatedTime": "2024-03-12T04:39:39.869Z",
+                        "UpdatedTime": "2024-03-12T04:49:45.146Z",
+                        "CreatedBy": "4e1bb3f5-8c0b-4573-8e6f-abf93bdc4224",
+                        "UpdatedBy": "4e1bb3f5-8c0b-4573-8e6f-abf93bdc4224"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "token": {}
+          }
+        ]
+      },
+      "put": {
+        "summary": "修改组织",
+        "description": "修改组织",
+        "tags": [
+          "组织管理"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "description": "组织ID",
+            "in": "path",
+            "type": "number",
+            "required": true
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "Name": {
+                    "description": "组织名称"
+                  },
+                  "Description": {
+                    "description": "组织描述"
+                  },
+                  "Level": {
+                    "description": "组织等级"
+                  },
+                  "LevelName": {
+                    "description": "组织等级名称"
+                  },
+                  "ParentId": {
+                    "description": "上级组织id"
+                  }
+                },
+                "example": {
+                  "Name": "南方分部",
+                  "Description": "无",
+                  "Level": "1",
+                  "LevelName": "二级",
+                  "ParentId": "1"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "number",
+                      "description": "状态码",
+                      "example": 200
+                    },
+                    "massage": {
+                      "type": "string",
+                      "description": "信息",
+                      "example": "更新组织成功"
+                    },
+                    "data": {
+                      "type": "object",
+                      "description": "用户信息",
+                      "example": {
+                        "OrganizationId": "11",
+                        "Name": "南方分部",
+                        "Description": "无",
+                        "Level": 1,
+                        "LevelName": "二级",
+                        "ParentId": "1",
+                        "UpdatedBy": "a450ce5f-6df3-42de-ba8f-34241f1462f1",
+                        "UpdatedTime": "2024-03-12T13:01:06.767Z"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "token": {}
+          },
+          {
+            "server_auth": [
+              "authorization"
+            ]
+          }
+        ]
+      }
+    },
+    "/permission/permissions": {
+      "post": {
+        "summary": "添加一条权限",
+        "description": "添加一条权限",
+        "tags": [
+          "权限管理"
+        ],
+        "security": [
+          {
+            "token": {}
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "Name": {
+                    "description": "权限名称"
+                  },
+                  "Tag": {
+                    "description": "权限标签"
+                  },
+                  "Type": {
+                    "description": "权限类型"
+                  },
+                  "RuleValue": {
+                    "description": "权限值"
+                  },
+                  "Description": {
+                    "description": "描述"
+                  },
+                  "Action": {
+                    "description": "行为"
+                  }
+                },
+                "example": {
+                  "Name": "添加用户",
+                  "Tag": "用户管理",
+                  "Type": "1",
+                  "RuleValue": "/v1/user/users",
+                  "Description": "添加用户",
+                  "Action": "post"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "number",
+                      "description": "状态码",
+                      "example": 200
+                    },
+                    "massage": {
+                      "type": "string",
+                      "description": "注册信息",
+                      "example": "用户注册成功"
+                    },
+                    "data": {
+                      "type": "object",
+                      "description": "用户信息",
+                      "example": null
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/permission/permissions/{type}": {
+      "get": {
+        "summary": "获取系统权限列表",
+        "description": "按类型获取权限列表",
+        "tags": [
+          "权限管理"
+        ],
+        "security": [
+          {
+            "token": {}
+          }
+        ],
+        "parameters": [
+          {
+            "name": "type",
+            "description": "类型【Type-->1:后端,2:前端】",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "number",
+                      "description": "状态码",
+                      "example": 200
+                    },
+                    "massage": {
+                      "type": "string",
+                      "description": "信息",
+                      "example": "获取权限成功"
+                    },
+                    "data": {
+                      "type": "object",
+                      "description": "权限信息",
+                      "example": null
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "summary": "重置系统权限列表",
+        "description": "按类型获取权限列表",
+        "tags": [
+          "权限管理"
+        ],
+        "security": [
+          {
+            "token": {}
+          }
+        ],
+        "parameters": [
+          {
+            "name": "type",
+            "description": "类型【Type-->1:后端,2:前端】",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "number",
+                      "description": "状态码",
+                      "example": 200
+                    },
+                    "massage": {
+                      "type": "string",
+                      "description": "信息",
+                      "example": "获取权限成功"
+                    },
+                    "data": {
+                      "type": "object",
+                      "description": "权限信息",
+                      "example": null
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/permission/permission/{id}": {
+      "delete": {
+        "summary": "删除某个权限",
+        "description": "删除某个权限",
+        "tags": [
+          "权限管理"
+        ],
+        "security": [
+          {
+            "token": {}
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "description": "权限id",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "删除成功",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "code": {
+                  "type": "number",
+                  "description": "状态码",
+                  "example": 200
+                },
+                "massage": {
+                  "type": "string",
+                  "description": "查询信息",
+                  "example": "删除成功"
+                },
+                "data": {
+                  "type": "object",
+                  "description": "用户信息"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/permission/permissions/roles/{id}": {
+      "post": {
+        "summary": "为用户添加角色",
+        "description": "为用户添加角色",
+        "tags": [
+          "权限管理"
+        ],
+        "security": [
+          {
+            "token": {}
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "description": "用户id",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "Roles": {
+                    "description": "角色值数组"
+                  }
+                },
+                "example": {
+                  "Roles": [
+                    "admin",
+                    "admin1",
+                    "admin2"
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "删除成功",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "code": {
+                  "type": "number",
+                  "description": "状态码",
+                  "example": 200
+                },
+                "massage": {
+                  "type": "string",
+                  "description": "查询信息",
+                  "example": "删除成功"
+                },
+                "data": {
+                  "type": "object",
+                  "description": "用户信息"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "summary": "删除用户所有角色",
+        "description": "删除用户所有角色",
+        "tags": [
+          "权限管理"
+        ],
+        "security": [
+          {
+            "token": {}
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "description": "权限id",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "删除成功",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "code": {
+                  "type": "number",
+                  "description": "状态码",
+                  "example": 200
+                },
+                "massage": {
+                  "type": "string",
+                  "description": "查询信息",
+                  "example": "删除成功"
+                },
+                "data": {
+                  "type": "object",
+                  "description": "用户信息"
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "summary": "获取角色权限列表",
+        "description": "获取角色权限列表",
+        "tags": [
+          "权限管理"
+        ],
+        "security": [
+          {
+            "token": {}
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "description": "角色id",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "删除成功",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "code": {
+                  "type": "number",
+                  "description": "状态码",
+                  "example": 200
+                },
+                "massage": {
+                  "type": "string",
+                  "description": "查询信息",
+                  "example": "删除成功"
+                },
+                "data": {
+                  "type": "object",
+                  "description": "用户信息"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/permission/permissions/{id}": {
+      "post": {
+        "summary": "为角色添加权限",
+        "description": "为角色添加权限",
+        "tags": [
+          "权限管理"
+        ],
+        "security": [
+          {
+            "token": {}
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "description": "角色id",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "Permissions": {
+                    "description": "权限ID数组"
+                  }
+                },
+                "example": {
+                  "Permissions": [
+                    "1",
+                    "2",
+                    "3",
+                    "4",
+                    "5",
+                    "6",
+                    "7",
+                    "8",
+                    "9"
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "删除成功",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "code": {
+                  "type": "number",
+                  "description": "状态码",
+                  "example": 200
+                },
+                "massage": {
+                  "type": "string",
+                  "description": "查询信息",
+                  "example": "删除成功"
+                },
+                "data": {
+                  "type": "object",
+                  "description": "用户信息"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "summary": "删除角色所有权限",
+        "description": "删除角色所有权限",
+        "tags": [
+          "权限管理"
+        ],
+        "security": [
+          {
+            "token": {}
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "description": "角色id",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "删除成功",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "code": {
+                  "type": "number",
+                  "description": "状态码",
+                  "example": 200
+                },
+                "massage": {
+                  "type": "string",
+                  "description": "查询信息",
+                  "example": "删除成功"
+                },
+                "data": {
+                  "type": "object",
+                  "description": "用户信息"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/role/roles": {
+      "post": {
+        "summary": "添加角色",
+        "description": "添加角色",
+        "tags": [
+          "角色管理"
+        ],
+        "security": [
+          {
+            "token": {}
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "Name": {
+                    "description": "角色名称"
+                  },
+                  "Description": {
+                    "description": "描述"
+                  },
+                  "Value": {
+                    "description": "角色值(唯一)"
+                  }
+                },
+                "example": {
+                  "Name": "管理员",
+                  "Description": "无",
+                  "Value": "admin"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "number",
+                      "description": "状态码",
+                      "example": 200
+                    },
+                    "massage": {
+                      "type": "string",
+                      "description": "信息",
+                      "example": "添加角色成功"
+                    },
+                    "data": {
+                      "type": "object",
+                      "description": "信息",
+                      "example": {
+                        "RoleId": "1",
+                        "Name": "管理员",
+                        "Value": "admin",
+                        "Description": "无",
+                        "IsDisabled": false,
+                        "IsDeleted": false,
+                        "CreatedTime": "2024-03-13T03:22:21.421Z",
+                        "UpdatedTime": "2024-03-13T03:22:21.421Z",
+                        "CreatedBy": "a450ce5f-6df3-42de-ba8f-34241f1462f1",
+                        "UpdatedBy": "a450ce5f-6df3-42de-ba8f-34241f1462f1"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "summary": "查询所有角色",
+        "description": "查询所有角色",
+        "tags": [
+          "角色管理"
+        ],
+        "security": [
+          {
+            "token": {}
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "number",
+                      "description": "状态码",
+                      "example": 200
+                    },
+                    "massage": {
+                      "type": "string",
+                      "description": "信息",
+                      "example": "删除角色成功"
+                    },
+                    "data": {
+                      "type": "object",
+                      "description": "信息",
+                      "example": {
+                        "RoleId": "1",
+                        "Name": "管理员",
+                        "Value": "admin",
+                        "Description": "无",
+                        "IsDisabled": false,
+                        "IsDeleted": true,
+                        "CreatedTime": "2024-03-13T03:22:21.421Z",
+                        "UpdatedTime": "2024-03-13T03:22:21.421Z",
+                        "CreatedBy": "a450ce5f-6df3-42de-ba8f-34241f1462f1",
+                        "UpdatedBy": "a450ce5f-6df3-42de-ba8f-34241f1462f1"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/role/roles/{id}": {
+      "delete": {
+        "summary": "删除角色",
+        "description": "删除角色",
+        "tags": [
+          "角色管理"
+        ],
+        "security": [
+          {
+            "token": {}
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "description": "角色ID",
+            "in": "path",
+            "type": "number",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "number",
+                      "description": "状态码",
+                      "example": 200
+                    },
+                    "massage": {
+                      "type": "string",
+                      "description": "信息",
+                      "example": "删除角色成功"
+                    },
+                    "data": {
+                      "type": "object",
+                      "description": "信息",
+                      "example": {
+                        "RoleId": "1",
+                        "Name": "管理员",
+                        "Value": "admin",
+                        "Description": "无",
+                        "IsDisabled": false,
+                        "IsDeleted": true,
+                        "CreatedTime": "2024-03-13T03:22:21.421Z",
+                        "UpdatedTime": "2024-03-13T03:22:21.421Z",
+                        "CreatedBy": "a450ce5f-6df3-42de-ba8f-34241f1462f1",
+                        "UpdatedBy": "a450ce5f-6df3-42de-ba8f-34241f1462f1"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "summary": "查询单个角色",
+        "description": "查询单个角色",
+        "tags": [
+          "角色管理"
+        ],
+        "security": [
+          {
+            "token": {}
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "description": "角色ID",
+            "in": "path",
+            "type": "number",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "number",
+                      "description": "状态码",
+                      "example": 200
+                    },
+                    "massage": {
+                      "type": "string",
+                      "description": "信息",
+                      "example": "查询角色成功"
+                    },
+                    "data": {
+                      "type": "object",
+                      "description": "信息",
+                      "example": {
+                        "RoleId": "1",
+                        "Name": "管理员",
+                        "Value": "admin",
+                        "Description": "无",
+                        "IsDisabled": false,
+                        "IsDeleted": true,
+                        "CreatedTime": "2024-03-13T03:22:21.421Z",
+                        "UpdatedTime": "2024-03-13T03:22:21.421Z",
+                        "CreatedBy": "a450ce5f-6df3-42de-ba8f-34241f1462f1",
+                        "UpdatedBy": "a450ce5f-6df3-42de-ba8f-34241f1462f1"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "summary": "更新角色",
+        "description": "更新角色",
+        "tags": [
+          "角色管理"
+        ],
+        "security": [
+          {
+            "token": {}
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "description": "角色ID",
+            "in": "path",
+            "type": "number",
+            "required": true
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "Name": {
+                    "description": "角色名称"
+                  },
+                  "Description": {
+                    "description": "描述"
+                  },
+                  "Value": {
+                    "description": "角色值(唯一)"
+                  },
+                  "IsDisabled": {
+                    "description": "是否禁用"
+                  }
+                },
+                "example": {
+                  "Name": "管理员",
+                  "Description": "无",
+                  "Value": "admin",
+                  "IsDisabled": false
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "number",
+                      "description": "状态码",
+                      "example": 200
+                    },
+                    "massage": {
+                      "type": "string",
+                      "description": "信息",
+                      "example": "删除角色成功"
+                    },
+                    "data": {
+                      "type": "object",
+                      "description": "信息",
+                      "example": {
+                        "RoleId": "1",
+                        "Name": "管理员",
+                        "Value": "admin",
+                        "Description": "无",
+                        "IsDisabled": false,
+                        "IsDeleted": true,
+                        "CreatedTime": "2024-03-13T03:22:21.421Z",
+                        "UpdatedTime": "2024-03-13T03:22:21.421Z",
+                        "CreatedBy": "a450ce5f-6df3-42de-ba8f-34241f1462f1",
+                        "UpdatedBy": "a450ce5f-6df3-42de-ba8f-34241f1462f1"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/role/deleteRoleForAccount": {
+      "delete": {
+        "summary": "删除用户的角色 (待开发)",
+        "description": "删除用户的角色",
+        "tags": [
+          "角色管理"
+        ]
+      }
+    },
+    "/test/post": {
+      "post": {
+        "summary": "测试post请求",
+        "description": "测试post请求",
+        "tags": [
+          "测试路由"
+        ],
+        "responses": {
+          "200": {
+            "description": "这是一个测试路由,post请求正常!"
+          }
+        }
+      }
+    },
+    "/test/delete": {
+      "delete": {
+        "summary": "测试delete请求",
+        "description": "测试delete请求",
+        "tags": [
+          "测试路由"
+        ],
+        "responses": {
+          "200": {
+            "description": "这是一个测试路由,delete请求正常!"
+          }
+        }
+      }
+    },
+    "/test/get": {
+      "get": {
+        "summary": "测试get请求",
+        "description": "测试get请求",
+        "tags": [
+          "测试路由"
+        ],
+        "responses": {
+          "200": {
+            "description": "这是一个测试路由,get请求正常!"
+          }
+        }
+      }
+    },
+    "/test/put": {
+      "put": {
+        "summary": "测试put请求",
+        "description": "测试put请求",
+        "tags": [
+          "测试路由"
+        ],
+        "responses": {
+          "200": {
+            "description": "这是一个测试路由,put请求正常!"
+          }
+        }
+      }
+    }
+  },
+  "tags": [
+    {
+      "name": "用户模块",
+      "description": "用户管理模块",
+      "baseurl": "/v1/account"
+    },
+    {
+      "name": "数据库测试",
+      "description": "测试数据库功能",
+      "baseurl": "/v1/example"
+    },
+    {
+      "name": "组织管理",
+      "description": "组织路由模块",
+      "baseurl": "/v1/organization"
+    },
+    {
+      "name": "权限管理",
+      "description": "权限管理模块",
+      "baseurl": "/v1/permission"
+    },
+    {
+      "name": "角色管理",
+      "description": "角色管理模块",
+      "baseurl": "/v1/role"
+    },
+    {
+      "name": "测试路由",
+      "description": "测试路由",
+      "baseurl": "/v1/test"
+    }
+  ]
+}

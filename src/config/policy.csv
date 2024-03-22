@@ -1,0 +1,4 @@
+p, SuperAdmin, /*, *
+p, data2_admin, data2, write
+
+g, 1, SuperAdmin

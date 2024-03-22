@@ -1,6 +1,6 @@
 # IoT-Hub-Node
 
-![](./logo.png)
+![](./public/logo.png)
 
 用不同的语言阅读：[English](./README-EN.md) | [繁体中文](./docREADME-CHT.md)
 
@@ -13,6 +13,10 @@ IoT-Hub-Node是一个基于 Node.js 的物联网设备接入管理平台，旨�
 通过优化和不断改进，IoT-Hub-Node 可以支持各种物联网应用程序的开发，例如智能家居、智能工厂和智能农业等领域。它提供了强大的功能和灵活性，使得开发人员能够构建出高性能、可靠的物联网应用程序。
 
 目前，IoT-Hub-Node还处于开发阶段，后续会逐步完善功能。
+
+## 架构
+
+![IOT-Hub-Node系统架构](./docs/attachments/IOT-Hub-Node架构v2.png)
 
 ## 目的
 
@@ -46,9 +50,8 @@ IoT-Hub-Node是一个基于 Node.js 的物联网设备接入管理平台，旨�
 - logs              // 日志文件夹
 - middlewares       // 中间件，请求预处理逻辑，例如权限验证
 - prisma            // 数据库访问ORM层
-- routes            // 路由定义
+- routers            // 路由定义
 - public            // 静态资源文件夹
-- routes            // 路由文件夹
 - services          // 数据服务层，处理数据库业务
 - tests             // 测试文件夹
 - utils             // 工具函数或类

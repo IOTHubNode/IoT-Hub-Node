@@ -1,0 +1,223 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+// 示例表
+model Example {
+  ExampleId   BigInt   @id @default(autoincrement()) @map("example_id")
+  Name        String   @map("name")
+  Password    String   @map("password")
+  Email       String   @unique @default("test@test.com") @map("email")
+  Phone       String   @default("12312341234") @map("phone")
+  IsDeleted   Boolean  @default(false) @map("is_deleted")
+  CreatedTime DateTime @default(now()) @map("created_time")
+  UpdatedTime DateTime @updatedAt @map("updated_time")
+
+  @@map("example")
+}
+
+// 组织架构表 
+model Organization {
+  // 组织ID
+  OrganizationId BigInt   @id @default(autoincrement()) @map("organization_id")
+  // 组织名称
+  Name           String   @map("name")
+  // 组织描述
+  Description    String   @default("暂无描述") @map("description")
+  // 组织层级
+  Level          Int      @default(0) @map("level")
+  // 层级名称
+  LevelName      String   @default("暂无层级名称") @map("level_name")
+  // 父级组织ID
+  ParentId       BigInt   @default(0) @map("parent_id")
+  // 是否禁用
+  IsDisabled     Boolean  @default(false) @map("is_disabled")
+  // 是否删除
+  IsDeleted      Boolean  @default(false) @map("is_deleted")
+  // 创建时间
+  CreatedTime    DateTime @default(now()) @map("created_time")
+  // 更新时间
+  UpdatedTime    DateTime @updatedAt @map("updated_time")
+  // 创建人
+  CreatedBy      String   @map("created_by")
+  // 更新人
+  UpdatedBy      String   @map("updated_by")
+
+  @@map("organization")
+}
+
+// 用户表
+model Account {
+  // 用户ID
+  AccountId      String   @id @default(uuid()) @map("account_id")
+  // 组织ID
+  OrganizationId BigInt   @default(0) @map("organization_id")
+  // 账号
+  Account        String   @unique @map("account")
+  // 密码
+  Password       String   @map("password")
+  // 用户名
+  Name           String   @map("name")
+  // 头像地址
+  AvatarUrl      String   @default("https://image-1308319148.cos.ap-chengdu.myqcloud.com/main/%E4%B8%AA%E4%BA%BA%E5%A4%B4%E5%83%8F.png") @map("avatar_url")
+  // 性别
+  Email          String   @unique @default("test@test.com") @map("email")
+  // 手机号
+  Phone          String   @unique @default("12312341234") @map("phone")
+  // 是否删除
+  IsDeleted      Boolean  @default(false) @map("is_deleted")
+  // 是否禁用
+  IsDisabled     Boolean  @default(false) @map("is_disabled")
+  // 创建时间
+  CreatedTime    DateTime @default(now()) @map("created_time")
+  // 更新时间
+  UpdatedTime    DateTime @updatedAt @map("updated_time")
+  // 创建人
+  CreatedBy      String   @map("created_by")
+  // 更新人
+  UpdatedBy      String   @map("updated_by")
+
+  @@map("account")
+}
+
+// Casbin权限规则(用户角色权限中间表)
+model CasbinRule {
+  id    Int     @id @default(autoincrement())
+  ptype String
+  v0    String?
+  v1    String?
+  v2    String?
+  v3    String?
+  v4    String?
+  v5    String?
+
+  @@map("casbin_rule")
+}
+
+// 角色表(无角色继承)
+model Role {
+  // 角色ID
+  RoleId      BigInt   @id @default(autoincrement()) @map("role_id")
+  // 角色名称
+  Name        String   @map("name")
+  // 角色值( // 角色值(唯一作为逻辑外键,关联casbin_rule表))
+  Value       String   @unique @map("value")
+  // 角色描述
+  Description String   @default("暂无描述") @map("description")
+  // 是否禁用
+  IsDisabled  Boolean  @default(false) @map("is_disabled")
+  // 是否删除
+  IsDeleted   Boolean  @default(false) @map("is_deleted")
+  // 创建时间
+  CreatedTime DateTime @default(now()) @map("created_time")
+  // 更新时间
+  UpdatedTime DateTime @updatedAt @map("updated_time")
+  // 创建人
+  CreatedBy   String   @map("created_by")
+  // 更新人
+  UpdatedBy   String   @map("updated_by")
+
+  @@map("role")
+}
+
+// 权限表(无层级,平铺)
+model Permission {
+  // 权限ID
+  PermissionId BigInt   @id @default(autoincrement()) @map("permission_id")
+  // 权限标志
+  Tag          String   @map("tag")
+  // 权限名称
+  Name         String   @map("name")
+  // 权限类型(1:后端路由顶层,2:后端路由子层;11:前端路由顶层,12:前端路由子层)
+  Type         Int      @map("type")
+  // 权限值(前后端路由url)(作为逻辑外键,关联casbin_rule表)(由于前后端公用这个字段，所以要保证前后端路由值不重复)
+  RuleValue    String   @map("rule_value")
+  // 权限行为(作为逻辑外键,关联casbin_rule表)
+  Action       String   @default("get") @map("action")
+  // 权限描述
+  Description  String   @default("暂无描述") @map("description")
+  // 是否禁用
+  IsDisabled   Boolean  @default(false) @map("is_disabled")
+  // 是否删除
+  IsDeleted    Boolean  @default(false) @map("is_deleted")
+  // 创建时间
+  CreatedTime  DateTime @default(now()) @map("created_time")
+  // 更新时间
+  UpdatedTime  DateTime @updatedAt @map("updated_time")
+  // 创建人
+  CreatedBy    String   @map("created_by")
+  // 更新人
+  UpdatedBy    String   @map("updated_by")
+
+  @@map("permission")
+}
+
+//·························废弃··············································//
+
+// //用户角色中间表
+// model AccountRole {
+//   AccountRoleId BigInt   @id @default(autoincrement()) @map("account_role_id")
+//   AccountId     BigInt   @map("account_id")
+//   RoleId        BigInt   @map("role_id")
+//   IsDeleted     Boolean  @default(false) @map("is_deleted")
+//   CreatedTime   DateTime @default(now()) @map("created_time")
+//   UpdatedTime   DateTime @updatedAt @map("updated_time")
+
+//   @@map("account_role")
+// }
+
+// // 权限表
+// model Permission {
+//   PermissionId BigInt   @id @default(autoincrement()) @map("permission_id")
+//   Name         String   @map("name")
+//   IsDeleted    Boolean  @default(false) @map("is_deleted")
+//   CreatedTime  DateTime @default(now()) @map("created_time")
+//   UpdatedTime  DateTime @updatedAt @map("updated_time")
+
+//   @@map("permission")
+// }
+
+// // 角色权限中间表
+// model RolePermission {
+//   RolePermissionId BigInt   @id @default(autoincrement()) @map("role_permission_id")
+//   RoleId           BigInt   @map("role_id")
+//   PermissionId     BigInt   @map("permission_id")
+//   IsDeleted        Boolean  @default(false) @map("is_deleted")
+//   CreatedTime      DateTime @default(now()) @map("created_time")
+//   UpdatedTime      DateTime @updatedAt @map("updated_time")
+
+//   @@map("role_permission")
+// }
+
+// // 团队表
+// model Team {
+//   TeamId      BigInt   @id @default(autoincrement()) @map("team_id")
+//   OrganizationId BigInt   @map("organization_id")
+//   Name        String   @map("name")
+//   Description String   @map("description")
+//   IsDeleted   Boolean  @default(false) @map("is_deleted")
+//   CreatedTime DateTime @default(now()) @map("created_time")
+//   UpdatedTime DateTime @updatedAt @map("updated_time")
+
+//   @@map("team")
+// }
+
+// // 团队成员中间表
+// model TeamMember {
+//   TeamMemberId BigInt   @id @default(autoincrement()) @map("team_member_id")
+//   TeamId       BigInt   @map("team_id")
+//   AccountId    BigInt   @map("account_id")
+//   IsDeleted    Boolean  @default(false) @map("is_deleted")
+//   CreatedTime  DateTime @default(now()) @map("created_time")
+//   UpdatedTime  DateTime @updatedAt @map("updated_time")
+
+//   @@map("team_member")
+// }
+
+// CasbinRule
+//·························废弃··············································//
