@@ -1,6 +1,6 @@
 # IoT-Hub-Node
 
-![](./logo.png)
+![](./public/logo.png)
 
 用不同的语言阅读：[English](./README-EN.md) | [繁体中文](./docREADME-CHT.md)
 

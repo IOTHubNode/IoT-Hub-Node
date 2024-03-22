@@ -1,0 +1,15 @@
+build/
+node_modules/
+package-lock.json
+.env
+README.md
+*attachments/
+*/assets/
+*/logs/
+docs/
+src/script/template
+public/
+*assets/
+*prisma/
+**/policy.csv
+**/casbin.model.conf

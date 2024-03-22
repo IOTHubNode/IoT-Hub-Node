@@ -1,0 +1,4 @@
+{
+  //推荐prettier和eslint的插件
+  "recommendations": ["esbenp.prettier-vscode", "dbaeumer.vscode-eslint"]
+}

@@ -1,0 +1,84 @@
+//{{moduleName}}路由模块
+
+import Router from 'koa-router';
+const router = new Router({ prefix: '/v1/{{moduleName}}' });
+import Controllers from '../controllers/{{moduleName}}.controller';
+
+/**
+ * @swagger
+ * /v1/{{moduleName}}/post:
+ *   post:
+ *     summary: {{moduleName}}
+ *     description: {{moduleName}}
+ *     tags: [{{moduleName}}]
+ *     produces:
+ *     - application/json
+ *     parameters: # 请求参数：
+ *      - name: Name
+ *        description: 名称
+ *        in: formData
+ *        required: true
+ *     responses:
+ *       200:
+ *         description:
+ *
+ */
+router.post('/post', Controllers.post);
+
+/**
+ * @swagger
+ * /v1/{{moduleName}}/delete:
+ *   delete:
+ *     summary: {{moduleName}}
+ *     description: {{moduleName}}
+ *     tags: [{{moduleName}}]
+ *     produces:
+ *     - application/json
+ *     parameters: # 请求参数：
+ *      - name: {{moduleName}}Id
+ *        description: 测试id
+ *        in: formData
+ *        required: true
+ *     responses:
+ *       200:
+ *         description:
+ *
+ */
+router.delete('/delete', Controllers.delete);
+
+/**
+ * @swagger
+ * /v1/{{moduleName}}/get:
+ *   get:
+ *     summary: {{moduleName}}
+ *     description: {{moduleName}}
+ *     tags: [{{moduleName}}]
+ *     responses:
+ *       200:
+ *         description:
+ *
+ */
+router.get('/get', Controllers.get);
+
+/**
+ * @swagger
+ * /v1/{{moduleName}}/put:
+ *   put:
+ *     summary: {{moduleName}}
+ *     description: {{moduleName}}
+ *     tags: [{{moduleName}}]
+ *     produces:
+ *     - application/json
+ *     parameters: # 请求参数：
+ *      - name: {{moduleName}}Id
+ *        description: 测试id
+ *        in: formData
+ *        required: true
+ *     responses:
+ *       200:
+ *         description:
+ *
+ */
+router.put('/put', Controllers.put);
+
+export default router;
