@@ -1,10 +1,10 @@
 {
   "openapi": "3.0.0",
   "info": {
-    "title": "node-koa-templates API",
+    "title": "IOT-Hub-Node API",
     "version": "1.0.0",
     "summary": "test",
-    "description": "token:   Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJBY2NvdW50SWQiOiI0ZTFiYjNmNS04YzBiLTQ1NzMtOGU2Zi1hYmY5M2JkYzQyMjQiLCJpYXQiOjE3MTAxNTA3MDEsImV4cCI6MTcxMjc0MjcwMX0.3_o-5nKLLnISV_fJ6n_-eAXX2r_S4W_04JFk3rL5RwU",
+    "description": "基于node.js的通用物联网平台",
     "license": {
       "name": "MIT",
       "url": "https://github.com/saisilinus/node-express-mongoose-typescript-boilerplate.git"
