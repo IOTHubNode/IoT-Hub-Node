@@ -23,7 +23,7 @@
   "author": "DuRuofu",
   "license": "ISC",
   "dependencies": {
-    "@prisma/client": "^5.10.2",
+    "@prisma/client": "^5.12.1",
     "casbin": "^5.28.0",
     "casbin-prisma-adapter": "^1.5.0",
     "crypto": "^1.0.1",
@@ -67,7 +67,7 @@
     "husky": "^8.0.3",
     "lint-staged": "^15.2.0",
     "prettier": "^3.2.1",
-    "prisma": "^5.10.2",
+    "prisma": "^5.12.1",
     "ts-node": "^10.9.2"
   }
 }
