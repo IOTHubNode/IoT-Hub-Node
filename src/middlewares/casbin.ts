@@ -14,7 +14,7 @@ class Casbin {
     const a = await PrismaAdapter.newAdapter();
     const enforcer = await newEnforcer('src/config/casbin.model.conf', a);
     //const enforcer = await newEnforcer('src/config/casbin.model.conf', 'src/config/policy.csv');
-    console.log('Casbin初始化完成'); // 检查 enforcer 对象是否正确初始化
+    //console.log('Casbin初始化完成'); // 检查 enforcer 对象是否正确初始化
     this.enforcer = enforcer;
     //console.log(this.enforcer);
   }

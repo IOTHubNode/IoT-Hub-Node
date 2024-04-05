@@ -12,10 +12,9 @@ import { loggerMiddleware } from './middlewares/log';
 import { errorHandler } from './middlewares/error';
 import { corsHandler } from './middlewares/cors';
 import { responseHandler } from './middlewares/response';
-import { getIpAddress } from './utils/util';
+import { getIpAddress, printLogo } from './utils/util';
 import router from './routers/index';
 import { koaSwagger } from 'koa2-swagger-ui';
-import { PublicRouter } from './config/constant';
 import { Jwtauth } from './middlewares/jwt';
 import Casbin from './middlewares/casbin';
 
@@ -57,19 +56,8 @@ app.use(koaSwagger({ routePrefix: '/api-docs', swaggerOptions: { url: '/docs' } 
 // 挂载响应处理中间件
 app.use(responseHandler);
 
-//http 服务
-const httpPort = PORT.http;
-const httpServer = http.createServer(app.callback());
-httpServer.listen(httpPort);
-httpServer.on('error', (err: Error) => {
-  console.log(err);
-});
-httpServer.on('listening', () => {
-  const ip = getIpAddress();
-  const address = `http://${ip}:${httpPort}`;
-  const localAddress = `http://localhost:${httpPort}`;
-  console.log(`app started at address:${localAddress} or ${address}`);
-});
+// 启动服务
+printLogo();
 
 //https 服务
 const httpsPort = PORT.https;
@@ -88,4 +76,19 @@ httpsServer.on('listening', () => {
   const address = `https://${ip}:${httpsPort}`;
   const localAddress = `https://localhost:${httpsPort}`;
   console.log(`app started at address:${localAddress} or ${address}`);
+});
+
+//http 服务
+const httpPort = PORT.http;
+const httpServer = http.createServer(app.callback());
+httpServer.listen(httpPort);
+httpServer.on('error', (err: Error) => {
+  console.log(err);
+});
+httpServer.on('listening', () => {
+  const ip = getIpAddress();
+  const address = `http://${ip}:${httpPort}`;
+  const localAddress = `http://localhost:${httpPort}`;
+  console.log(`app started at address:${localAddress} or ${address}`);
+  console.log(`API documentation:${localAddress}/api-docs or ${address}/api-docs`);
 });
