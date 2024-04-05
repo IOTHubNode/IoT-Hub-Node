@@ -48,7 +48,7 @@ class DeviceModelService {
 
   // 查询某个
   async getModelData(ctx: any, id: number) {
-    console.log('查询某个物模型');
+    // console.log('查询某个物模型');
     try {
       const result = await prisma.deviceModel.findUnique({
         where: {

@@ -49,7 +49,7 @@ class DeviceModelController {
 
   // 查询某个物模型
   async getModelData(ctx: any, next: any) {
-    console.log('查询某个物模型');
+    // console.log('查询某个物模型');
     const { id } = ctx.params;
     const result = await DeviceModelService.getModelData(ctx, id);
     if (!result) {
