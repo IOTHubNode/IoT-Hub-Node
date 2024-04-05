@@ -32,7 +32,7 @@ class Casbin {
     console.log(accountId, path, method);
     // 检查当前用户是否有权限访问该路径
     const res = await this.enforcer.enforce(accountId, path, method.toLowerCase());
-    //const res = 1;
+    //res = 1;
     //console.log(res);
     if (res) {
       await next();

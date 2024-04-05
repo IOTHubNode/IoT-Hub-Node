@@ -1,84 +1,81 @@
-# IoT-Hub-Node
+# IOT-Hub-Node-Web
 
-![](./public/logo.png)
+IOT-Hub-Node的后台管理web项目
 
-用不同的语言阅读：[English](./README-EN.md) | [繁体中文](./docREADME-CHT.md)
 
-## 介绍
+## 技术栈
 
-IoT-Hub-Node是一个基于 Node.js 的物联网设备接入管理平台，旨在连接物联网设备和应用程序。它提供了一系列基于 HTTP 的API，用于实现设备接入、消息发送和接收，物模型管理和事件告警等。此外，它还提供了基于 MQTT，REST/HTTP的通信接口，用于设备与物联网的连接(MQTT Broker使用开源Aedes 和EMQX )。未来，我们还计划开发其他接口，例如基于CoAP的接口，以提供更多选择。
+- Vue3
+- Vite
+- TypeScript
+- Element-Plus
+- Axios
+- Echarts
+- pinia
 
-使用 Node.js 进行开发，可在云端或本地部署，并能在不同平台上运行。使用 MySQL 作为默认数据库，并采用 prisma 作为 ORM 框架，这使得用户在需要切换数据库时非常方便。此外，Node.js 的异步非阻塞特性也使得其能够处理大量并发请求，具备高效处理能力。
-
-通过优化和不断改进，IoT-Hub-Node 可以支持各种物联网应用程序的开发，例如智能家居、智能工厂和智能农业等领域。它提供了强大的功能和灵活性，使得开发人员能够构建出高性能、可靠的物联网应用程序。
-
-目前，IoT-Hub-Node还处于开发阶段，后续会逐步完善功能。
-
-## 架构
-
-![IOT-Hub-Node系统架构](./docs/attachments/IOT-Hub-Node架构v2.png)
-
-## 目的
-
-本项目旨在提供一个基于 node.js 的物联网设备管理平台：实现设备接入、消息发送和接收，物模型管理和事件告警。希望通过这个平台让没有物联网开发经验的开发者能够快速开发物联网应用程序，并让前端开发者更轻松地接触物联网领域。希望通过这个项目，让物联网开发者和嵌入式开发者能够更容易地接触物联网，体会 web 技术在嵌入式领域的使用。
-
-## 当前状态
-
-我的专业是电气工程及智能控制，对于 web 开发及服务器技术并不熟悉。因此，通过这个项目，我希望能够帮助其他人更轻松地开发和理解物联网应用程序,欢迎与我共同开发。
-
-我会在开发日志中记录学习过程中遇到的问题和解决方案，并在我的个人博客上发布一些学习笔记。你可以在[DuRuofu的个人博客](https://www.duruofu.xyz/)找到这些内容。我将以一个初学者的角度开始这个项目，并欢迎你在 issue 中提出你的想法。我会尽可能完善这个项目。
-
-如果你对这个项目感兴趣，欢迎加入我们一起开发。我们欢迎你提供建议和帮助。
-
-您想贡献吗？阅读我们的[贡献指南](./docs/CONTRIBUTING.md)以了解更多信息。有很多方法可以提供帮助！😃
-
-## 项目结构
-
-下面是项目的项目结构示意：
+## 文件目录
+``` sh
+.
+├── build # 打包脚本相关
+│   ├── config # 配置文件
+│   ├── generate # 生成器
+│   ├── script # 脚本
+│   └── vite # vite配置
+├── mock # mock文件夹
+├── public # 公共静态资源目录
+├── src # 主目录
+│   ├── api # 接口文件
+│   ├── assets # 资源文件
+│   │   ├── icons # icon sprite 图标文件夹
+│   │   ├── images # 项目存放图片的文件夹
+│   │   └── svg # 项目存放svg图片的文件夹
+│   ├── components # 公共组件
+│   ├── design # 样式文件
+│   ├── directives # 指令
+│   ├── enums # 枚举/常量
+│   ├── hooks # hook
+│   │   ├── component # 组件相关hook
+│   │   ├── core # 基础hook
+│   │   ├── event # 事件相关hook
+│   │   ├── setting # 配置相关hook
+│   │   └── web # web相关hook
+│   ├── layouts # 布局文件
+│   │   ├── default # 默认布局
+│   │   ├── iframe # iframe布局
+│   │   └── page # 页面布局
+│   ├── locales # 多语言
+│   ├── logics # 逻辑
+│   ├── main.ts # 主入口
+│   ├── router # 路由配置
+│   ├── settings # 项目配置
+│   │   ├── componentSetting.ts # 组件配置
+│   │   ├── designSetting.ts # 样式配置
+│   │   ├── encryptionSetting.ts # 加密配置
+│   │   ├── localeSetting.ts # 多语言配置
+│   │   ├── projectSetting.ts # 项目配置
+│   │   └── siteSetting.ts # 站点配置
+│   ├── store # 数据仓库
+│   ├── utils # 工具类
+│   └── views # 页面
+├── types # 类型文件
+└── vite.config.ts # vite配置文件
 
 ```
-- .husky            // lint-staged自动格式化工具目录
-- app               // 应用程序层
-- bcroker           // 消息代理层
-- config            // 配置文件夹
-- controllers       // 控制器，处理路由逻辑
-- docs              // 文档目录
-   - CONTRIBUTING.md   // 包含关于如何为项目做出贡献的准则和说明。
-   - API.md            // 包含项目的应用程序编程接口（API）的文档。
-   - TUTORIAL.md       // 一个教程，提供关于如何使用项目的详细指南。
-   - DESIGN.md         // 项目的设计文档，描述了项目的架构、组件、数据流和交互过程等细节。
-- logs              // 日志文件夹
-- middlewares       // 中间件，请求预处理逻辑，例如权限验证
-- prisma            // 数据库访问ORM层
-- routers            // 路由定义
-- public            // 静态资源文件夹
-- services          // 数据服务层，处理数据库业务
-- tests             // 测试文件夹
-- utils             // 工具函数或类
-- .env              // 环境变量文件参考
-- .gitignore        // git忽略文件
-- app.ts            // 项目入口文件
-- package.json      // 项目配置文件
-- README.md         // 项目的入口文件，通常提供项目的概述、背景信息、安装指南、使用说明和贡献指南等信息。
 
+## Project Setup
+
+```sh
+npm install
 ```
 
-以及[设计文档](./docs/DESIGN.md)|[开发日志](./docs/DEVELOPMENT_LOG.md)等文档。
+### Compile and Hot-Reload for Development
 
-## 开始使用
+```sh
+npm run dev
+```
 
-参考[快速开始](./docs/TUTORIAL.md)以了解如何在本地运行项目。
+### Type-Check, Compile and Minify for Production
 
-详细内容请参考[API文档](./docs/API.md)
-
-## 更新日志
-
-详细版本更新日志记录在[更新日志](./docs/CHANGELOG.md)中。
-
-## 后续计划
-
-关于项目开发计划记录在[开发日志](./docs/TODO.md)中。
-
-## 联系我
-
-如果你想了解更多关于此项目的信息,请阅读[设计文档](./docs/DESIGN.md),或者通过邮箱联系我: [duruofu@qq.com]
+```sh
+npm run build
+```
