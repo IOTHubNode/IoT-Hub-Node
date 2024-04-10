@@ -14,6 +14,7 @@ import { corsHandler } from './middlewares/cors';
 import { responseHandler } from './middlewares/response';
 import { getIpAddress, printLogo } from './utils/util';
 import router from './routers/index';
+import broker_router from './broker/index';
 import { koaSwagger } from 'koa2-swagger-ui';
 import { Jwtauth } from './middlewares/jwt';
 import Casbin from './middlewares/casbin';
@@ -47,8 +48,11 @@ app.use(parameter(app));
 // 挂载静态资源中间件
 app.use(Static(path.join(__dirname + '/../public')));
 
-// 路由自动挂载
+// 业务路由自动挂载
 app.use(router.routes()).use(router.allowedMethods());
+
+// 挂载broker路由
+app.use(broker_router.routes()).use(broker_router.allowedMethods());
 
 // 挂载swagger文档中间件
 app.use(koaSwagger({ routePrefix: '/api-docs', swaggerOptions: { url: '/docs' } }));
