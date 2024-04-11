@@ -7,7 +7,7 @@ import Cors from 'koa2-cors';
 import koaBody, { HttpMethodEnum } from 'koa-body';
 import Static from 'koa-static';
 import parameter from 'koa-parameter';
-import { PORT } from './config/constant';
+import { PORT,DOMAIN } from './config/constant';
 import { loggerMiddleware } from './middlewares/log';
 import { errorHandler } from './middlewares/error';
 import { corsHandler } from './middlewares/cors';
@@ -92,7 +92,7 @@ httpServer.on('error', (err: Error) => {
 httpServer.on('listening', () => {
   const ip = getIpAddress();
   const address = `http://${ip}:${httpPort}`;
-  const localAddress = `http://localhost:${httpPort}`;
+  const localAddress = `http://${DOMAIN.domain}:${httpPort}`;
   console.log(`app started at address:${localAddress} or ${address}`);
   console.log(`API documentation:${localAddress}/api-docs or ${address}/api-docs`);
 });

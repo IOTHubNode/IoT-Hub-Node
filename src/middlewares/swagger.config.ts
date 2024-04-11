@@ -1,10 +1,10 @@
-// swaggerAPI配置文件  参考：https://swagger.io/specification/
+// saggerAPI配置文件  参考：https://swagger.io/specification/
 
 import path from 'path';
 import fs from 'fs';
 import swaggerJSDoc from 'swagger-jsdoc';
 import AddressIp from 'ip';
-import { PORT } from '../config/constant';
+import { PORT,DOMAIN } from '../config/constant';
 
 const swaggerDefinition = {
   // 版本
@@ -29,7 +29,7 @@ const swaggerDefinition = {
   // 定义服务器
   servers: [
     {
-      url: `http://${AddressIp.address()}:${PORT.http}/v1`,
+      url: `http://${DOMAIN.domain}:${PORT.http}/v1`,
       description: 'API V1',
     },
   ],

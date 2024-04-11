@@ -14,6 +14,11 @@ export const PROJECT = {
   name: process.env.PROJECT_NAME || 'IOT-Hub-Node',
 };
 
+// 项目域名
+export const DOMAIN = {
+  domain: process.env.PROJECT_DOMAIN || 'localhost',
+}
+
 // JWT配置参数
 export const JWT = {
   secret: process.env.TOKEN_SECRET_KEY || 'SZw*QCX684K$d10JYWBpQFQ__pI)VAN@HZnmnjS', //token密钥
