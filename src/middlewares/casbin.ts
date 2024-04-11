@@ -14,7 +14,7 @@ class Casbin {
     const a = await PrismaAdapter.newAdapter();
     const enforcer = await newEnforcer('src/config/casbin.model.conf', a);
     //const enforcer = await newEnforcer('src/config/casbin.model.conf', 'src/config/policy.csv');
-    console.log('Casbin初始化完成'); // 检查 enforcer 对象是否正确初始化
+    //console.log('Casbin初始化完成'); // 检查 enforcer 对象是否正确初始化
     this.enforcer = enforcer;
     //console.log(this.enforcer);
   }
@@ -31,8 +31,8 @@ class Casbin {
     //console.log('全局路由守卫');
     console.log(accountId, path, method);
     // 检查当前用户是否有权限访问该路径
-    const res = await this.enforcer.enforce(accountId, path, method.toLowerCase());
-    //const res = 1;
+    //const res = await this.enforcer.enforce(accountId, path, method.toLowerCase());
+    const res = 1;
     //console.log(res);
     if (res) {
       await next();

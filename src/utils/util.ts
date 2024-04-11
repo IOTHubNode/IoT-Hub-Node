@@ -1,4 +1,6 @@
 import { Context } from 'vm';
+import figlet from 'figlet';
+import { PROJECT } from '../config/constant';
 
 import OS from 'os';
 /*获取当前ip地址*/
@@ -41,3 +43,23 @@ export function bigIntToString(value: any) {
   }
   return value;
 }
+
+// 打印LOGO
+export const printLogo = () => {
+  try {
+    // 使用figlet模块生成文本，并设置字体、布局、宽度、是否断行
+    const data = figlet.textSync(PROJECT.name, {
+      font: 'Standard',
+      horizontalLayout: 'default',
+      verticalLayout: 'default',
+      width: 80,
+      whitespaceBreak: true,
+    });
+    // 打印文本
+    console.log(data);
+  } catch (err) {
+    // 捕获错误，并打印错误信息
+    console.log('Something went wrong...');
+    console.dir(err);
+  }
+};

@@ -9,6 +9,11 @@ export const ENV = {
   production: 'production',
 };
 
+// 项目名称
+export const PROJECT = {
+  name: process.env.PROJECT_NAME || 'IOT-Hub-Node',
+};
+
 // JWT配置参数
 export const JWT = {
   secret: process.env.TOKEN_SECRET_KEY || 'SZw*QCX684K$d10JYWBpQFQ__pI)VAN@HZnmnjS', //token密钥
@@ -31,6 +36,7 @@ export const PublicRouter = [
   /\/account\/login/,
   /\/account\/register/,
   /\/favicon\.png/,
+  /\/mqtt\/hook/,
 ];
 
 // 默认头像列表，注册随机分配
