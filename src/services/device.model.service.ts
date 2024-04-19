@@ -1,11 +1,11 @@
 import { PrismaClient } from '@prisma/client';
 import { DB_FAIL } from '../config/code/responseCode';
-import jsonSpc from '../middlewares/swagger.config';
+
 const prisma = new PrismaClient();
 
 class DeviceModelService {
   // 添加物模型
-  async add(ctx: any, Name: string, Description: string, ConnectType: number, Data: any, CreatedBy: string) {
+  async add(ctx: any, Name: string, Description: string, ConnectType: number, CommunicationType: number, ProtocolType: number, Content: any, Image: string, CreatedBy: string) {
     console.log('添加物模型');
     try {
       const result = await prisma.deviceModel.create({
@@ -13,7 +13,9 @@ class DeviceModelService {
           Name: Name,
           Description: Description,
           ConnectType: +ConnectType,
-          Data: Data,
+          CommunicationType: +CommunicationType,
+          ProtocolType: +ProtocolType,
+          Content: Content,
           CreatedBy: CreatedBy,
           UpdatedBy: CreatedBy,
         },
@@ -59,7 +61,7 @@ class DeviceModelService {
           Name: true,
           Description: true,
           ConnectType: true,
-          Data: true,
+          Content: true,
           CreatedTime: true,
           UpdatedTime: true,
         },

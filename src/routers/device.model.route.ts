@@ -31,13 +31,19 @@ import Controller from '../controllers/device.model.controller';
  *                 description: 物模型描述
  *               ConnectType:
  *                 description: 物模型连接类型
- *               Data:
+ *               CommunicationType:
+ *                 description: 物模型通讯类型
+ *               ProtocolType:
+ *                 description: 物模型协议类型
+ *               Content:
  *                 description: 物模型内容(json)
  *             example:
  *               Name: "四路继电器模块"
  *               Description: "四路继电器模块"
  *               ConnectType: "1"
- *               Data: "{}"
+ *               CommunicationType: "1"
+ *               ProtocolType: "1"
+ *               Content: {}
  *     responses:
  *       "200":
  *         description: OK

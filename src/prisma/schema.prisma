@@ -160,29 +160,35 @@ model Permission {
 // 物模型
 model DeviceModel {
   // 物模型ID
-  DeviceModelId BigInt   @id @default(autoincrement()) @map("device_model_id")
+  DeviceModelId     BigInt   @id @default(autoincrement()) @map("device_model_id")
   // 物模型名称
-  Name          String   @unique @map("name")
+  Name              String   @unique @map("name")
   // 物模型描述
-  Description   String   @default("暂无描述") @map("description")
+  Description       String   @default("暂无描述") @map("description")
   // 物模型连接类型
-  ConnectType   Int      @default(1)@map("connect_type")
+  ConnectType       Int      @default(1) @map("connect_type")
+  // 设备通信类型
+  CommunicationType Int      @default(1) @map("communication_type")
+  // 设备接入协议
+  ProtocolType      Int      @default(1) @map("protocol_type")
   // 物模型内容
-  Data          Json     @map("data")
+  Content           Json     @map("content")
+  // 图片 
+  Image             String   @default("https://image-1308319148.cos.ap-chengdu.myqcloud.com/main/%E4%B8%AA%E4%BA%BA%E5%A4%B4%E5%83%8F.png") @map("image")
   // 是否禁用
-  IsDisabled    Boolean  @default(false) @map("is_disabled")
+  IsDisabled        Boolean  @default(false) @map("is_disabled")
   // 是否删除
-  IsDeleted     Boolean  @default(false) @map("is_deleted")
+  IsDeleted         Boolean  @default(false) @map("is_deleted")
   // 创建时间
-  CreatedTime   DateTime @default(now()) @map("created_time")
+  CreatedTime       DateTime @default(now()) @map("created_time")
   // 更新时间
-  UpdatedTime   DateTime @updatedAt @map("updated_time")
+  UpdatedTime       DateTime @updatedAt @map("updated_time")
   // 创建人
-  CreatedBy     String   @map("created_by")
+  CreatedBy         String   @map("created_by")
   // 更新人
-  UpdatedBy     String   @map("updated_by")
+  UpdatedBy         String   @map("updated_by")
 
-    @@map("device_model")
+  @@map("device_model")
 }
 
 // // 设备表
