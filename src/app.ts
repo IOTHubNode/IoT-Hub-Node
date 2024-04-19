@@ -36,7 +36,13 @@ app.use(Jwtauth);
 
 // 挂载body解析中间件
 app.use(
-  koaBody({ parsedMethods: [HttpMethodEnum.POST, HttpMethodEnum.PUT, HttpMethodEnum.PATCH, HttpMethodEnum.GET, HttpMethodEnum.DELETE] })
+  // 设置body解析中间件
+  koaBody({ parsedMethods: [HttpMethodEnum.POST, HttpMethodEnum.PUT, HttpMethodEnum.PATCH, HttpMethodEnum.GET, HttpMethodEnum.DELETE],multipart: true,formidable: {
+    maxFileSize: 200 * 1024 * 1024, // 设置文件上传大小限制，默认2M
+    uploadDir: path.join(__dirname, '../public/upload'), // 设置文件上传目录
+    keepExtensions: true, // 保持文件的后缀
+  }
+  })
 );
 
 // 挂载权限中间件
