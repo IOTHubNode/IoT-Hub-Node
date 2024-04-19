@@ -11,6 +11,8 @@ const router = new Router({ prefix: '/v1' });
 
 import Controller from './webhook.controller';
 
-router.get('/mqtt/hook', Controller.Webhook);
+
+// 用于EMQX集成的Webhook接口
+router.post('/mqtt/hook', Controller.Webhook);
 
 export default router;
