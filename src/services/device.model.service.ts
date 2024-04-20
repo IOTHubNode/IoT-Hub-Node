@@ -16,6 +16,7 @@ class DeviceModelService {
           CommunicationType: +CommunicationType,
           ProtocolType: +ProtocolType,
           Content: Content,
+          Image: Image,
           CreatedBy: CreatedBy,
           UpdatedBy: CreatedBy,
         },
@@ -35,6 +36,7 @@ class DeviceModelService {
         select: {
           DeviceModelId: true,
           Name: true,
+          Image: true,
           Description: true,
           ConnectType: true,
           CreatedTime: true,

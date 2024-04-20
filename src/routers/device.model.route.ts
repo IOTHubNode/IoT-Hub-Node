@@ -3,17 +3,17 @@
  * tags:
  *   name: 物模型管理
  *   description: 物模型管理
- *   baseurl: /v1
+ *   baseurl: /v1/d_model
  */
 import Router from 'koa-router';
-const router = new Router({ prefix: '/v1' });
+const router = new Router({ prefix: '/v1/d_model' });
 
 import Controller from '../controllers/device.model.controller';
 
 //#region 添加物模型
 /**
  * @swagger
- * /devicemodel:
+ * /d_model/devicemodel:
  *   post:
  *     summary: 添加物模型
  *     description: 添加物模型
@@ -75,7 +75,7 @@ router.post('/devicemodel', Controller.post);
 //#region 查询全部物模型基本信息
 /**
  * @swagger
- * /devicemodels:
+ * /d_model/devicemodels:
  *   get:
  *     summary: 查询全部物模型基本信息
  *     description: 查询全部物模型基本信息
@@ -111,7 +111,7 @@ router.get('/devicemodels', Controller.getAll);
 //#region 查询某个物模型的详细信息
 /**
  * @swagger
- * /devicemodel/{id}:
+ * /d_model/devicemodel/{id}:
  *   get:
  *     summary: 查询某个物模型的详细信息
  *     description: 查询某个物模型的详细信息

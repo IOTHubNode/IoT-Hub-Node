@@ -108,6 +108,6 @@ export const uploadPicture = (ctx: any, next: any) => {
   ctx.body = {
     code: 200,
     msg: '文件上传成功',
-    data: filePath,
+    data: `/${filePath}`,
   }
 }

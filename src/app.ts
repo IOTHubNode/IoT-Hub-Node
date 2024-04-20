@@ -6,6 +6,7 @@ import Koa from 'koa';
 import Cors from 'koa2-cors';
 import koaBody, { HttpMethodEnum } from 'koa-body';
 import Static from 'koa-static';
+const mount = require('koa-mount')
 import parameter from 'koa-parameter';
 import { PORT,DOMAIN } from './config/constant';
 import { loggerMiddleware } from './middlewares/log';
@@ -52,7 +53,7 @@ app.use(Casbin.authz);
 app.use(parameter(app));
 
 // 挂载静态资源中间件
-app.use(Static(path.join(__dirname + '/../public')));
+app.use(mount('/public', Static(path.join(__dirname) + '/../public/')))
 
 // 业务路由自动挂载
 app.use(router.routes()).use(router.allowedMethods());
