@@ -101,10 +101,13 @@ export const uploadPicture = (ctx: any, next: any) => {
     return;
   }
 
+  // 截取路径
+  const filePath = file.filepath.split(path.sep).slice(-3).join(path.sep);
+
   // 返回文件的路径
   ctx.body = {
     code: 200,
     msg: '文件上传成功',
-    data: file.filepath,
+    data: filePath,
   }
 }

@@ -1,4 +1,4 @@
-//常用具路由
+//常具路由
 
 /**
  * @swagger
@@ -25,12 +25,12 @@ const router = new Router({ prefix: '/v1/util' });
  * @swagger
  * /util/local_picture:
  *   post:
- *     summary: 测试post请求
- *     description: 测试post请求
+ *     summary: 图片上传
+ *     description: 图片上传
  *     tags: [工具路由]
  *     responses:
  *       200:
- *         description: 这是一个工具路由,post请求正常!
+ *         description: 图片上传
  *
  */
 router.post('/local_picture', uploadPicture);
