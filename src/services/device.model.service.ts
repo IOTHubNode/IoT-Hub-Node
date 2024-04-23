@@ -61,6 +61,7 @@ class DeviceModelService {
         select: {
           DeviceModelId: true,
           Name: true,
+          Image: true,
           Description: true,
           ConnectType: true,
           Content: true,
