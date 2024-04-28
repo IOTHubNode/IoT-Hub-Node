@@ -23,6 +23,8 @@
   "author": "DuRuofu",
   "license": "ISC",
   "dependencies": {
+    "@influxdata/influxdb-client": "^1.33.2",
+    "@influxdata/influxdb-client-apis": "^1.33.2",
     "@prisma/client": "^5.12.1",
     "casbin": "^5.28.0",
     "casbin-prisma-adapter": "^1.5.0",
