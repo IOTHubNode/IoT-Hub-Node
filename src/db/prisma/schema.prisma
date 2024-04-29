@@ -191,45 +191,31 @@ model DeviceModel {
   @@map("device_model")
 }
 
-// // 设备表
-// model Device {
-//   // 设备ID
-//   DeviceId      BigInt   @id @default(autoincrement()) @map("device_id")
-//   // 设备名称
-//   Name          String   @map("name")
-//   // 设备描述
-//   Description   String   @default("暂无描述") @map("description")
-//   // 设备型号
-//   Model         String   @map("model")
-//   // 设备类型
-//   Type          Int      @map("type")
-//   // 设备状态
-//   Status        Int      @default(0) @map("status")
-//   // 设备位置
-//   Location      String   @default("暂无位置") @map("location")
-//   // 设备经度
-//   Longitude     Float    @default(0) @map("longitude")
-//   // 设备纬度
-//   Latitude      Float    @default(0) @map("latitude")
-//   // 设备高度
-//   Height        Float    @default(0) @map("height")
-//   // 设备角度
-//   Angle         Float    @default(0) @map("angle")
-//   // 设备内容
-//   Content       Json     @map("content")
-//   // 是否禁用
-//   IsDisabled    Boolean  @default(false) @map("is_disabled")
-//   // 是否删除
-//   IsDeleted     Boolean  @default(false) @map("is_deleted")
-//   // 创建时间
-//   CreatedTime   DateTime @default(now()) @map("created_time")
-//   // 更新时间
-//   UpdatedTime   DateTime @updatedAt @map("updated_time")
-//   // 创建人
-//   CreatedBy     String   @map("created_by")
-//   // 更新人
-//   UpdatedBy     String   @map("updated_by")
-// }
+// 设备表
+model Device {
+  // 设备ID
+  DeviceId      BigInt @id @default(autoincrement()) @map("device_id")
+  // 设备名称
+  Name          String @map("name")
+  // 设备描述
+  Description   String @default("暂无描述") @map("description")
+  // 设备型号(物模型型号)
+  DeviceModelId BigInt @default(0) @map("device_model_id")
+
+  CreatedTime DateTime @default(now()) @map("created_time")
+  // 是否禁用
+  IsDisabled  Boolean  @default(false) @map("is_disabled")
+  // 是否删除
+  IsDeleted   Boolean  @default(false) @map("is_deleted")
+  // 创建时间
+  CreatedTime DateTime @default(now()) @map("created_time")
+  // 更新时间
+  UpdatedTime DateTime @updatedAt @map("updated_time")
+  // 创建人
+  CreatedBy   String   @map("created_by")
+  // 更新人
+  UpdatedBy   String   @map("updated_by")
+}
 
 //·························废弃··············································//
 
