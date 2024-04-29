@@ -3,6 +3,8 @@
 import { SUCCESS, PARAM_NOT_VALID } from '../../config/code/responseCode';
 //import { bigIntToString } from '../utils/util';
 
+import Service from './emqx.service';
+
 
 class HookController {
   // 设备连接认证接口
@@ -14,7 +16,7 @@ class HookController {
     const {username, password } = ctx.request.body;
 
     // 判断用户名和密码是否正确
-    if (username === 'admin' && password === 'public') {
+    if (username === '111' && password === 'public') {
       // 允许连接
       ctx.body = {
         "result": "allow"
@@ -30,8 +32,7 @@ class HookController {
 
   // webhook接口
   async Webhook(ctx: any, next: any) {
-    //console.log('webhook');
-    //console.log(ctx.request.body);
+    console.log(ctx.request.body);
 
     const { event } = ctx.request.body;
     switch (event) {
@@ -55,7 +56,16 @@ class HookController {
         break;
       case 'message.publish':
         console.log('事件: 消息发布');
-        console.log(ctx.request.body.payload);
+        // 获取发布者
+        const { clientid } = ctx.request.body;
+        // 获取消息内容
+        const { topic, payload } = ctx.request.body;
+
+        console.log(clientid, topic, payload);
+
+        // 写入数据库
+        await Service.writeMessage({ clientid, topic, payload });
+
         break;
       case 'message.delivered':
         console.log('事件: 消息已投递');

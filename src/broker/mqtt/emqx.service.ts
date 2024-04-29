@@ -1,68 +1,32 @@
 import { PrismaClient } from '@prisma/client';
+import { Point } from '@influxdata/influxdb-client'
+import  InfluxClient  from '../../db/influx/index';
 import { DB_FAIL } from '../../config/code/responseCode';
 
 const prisma = new PrismaClient();
 
-class ExampleService {
-  // 增
-  async createExample(ctx, Name: string, Password: string, Email: string, Phone: string) {
-    try {
-      const result = await prisma.example.create({
-        data: {
-          Name,
-          Password,
-          Email,
-          Phone,
-        },
-      });
-      return result;
-    } catch (error) {
-      await DB_FAIL(ctx);
-    }
-  }
+class MqttService {
 
-  // 删
-  async deleteExample(ctx, ExampleId: number) {
-    console.log(ExampleId);
-    try {
-      const result = await prisma.example.delete({
-        where: { ExampleId },
-      });
-      return result;
-    } catch (error) {
-      console.log(error);
-      await DB_FAIL(ctx);
-    }
-  }
 
-  // 改
-  async updateExample(ctx, ExampleId: number, Name: string, Password: string, Email: string, Phone: string) {
-    try {
-      const result = await prisma.example.update({
-        where: { ExampleId },
-        data: {
-          Name,
-          Password,
-          Email,
-          Phone,
-        },
-      });
-      return result;
-    } catch (error) {
-      await DB_FAIL(ctx);
-    }
-  }
+  // 写入设备属性数据
+  async writeMessage(data: any) {
+    let org = `iot`
+    let bucket = `test`
 
-  // 查
-  async getExample(ctx) {
-    try {
-      const result = await prisma.example.findMany({});
-      return result;
-    } catch (error) {
-      //console.log(error);
-      await DB_FAIL(ctx);
-    }
+    let writeClient = InfluxClient.client.getWriteApi(org, bucket, 'ns')
+
+    // 解析json数据
+
+
+    let point = new Point('test')
+      .tag(data.clientid, data.topic)
+      .intField('a', JSON.parse(data.payload).a)
+    
+    writeClient.writePoint(point)
+
+    //writeClient.flush()
+    
   }
 }
 
-export default new ExampleService();
+export default new MqttService();
