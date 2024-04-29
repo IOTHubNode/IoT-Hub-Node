@@ -194,15 +194,23 @@ model DeviceModel {
 // 设备表
 model Device {
   // 设备ID
-  DeviceId      BigInt @id @default(autoincrement()) @map("device_id")
+  DeviceId       BigInt @id @default(autoincrement()) @map("device_id")
   // 设备名称
-  Name          String @map("name")
+  Name           String @map("name")
   // 设备描述
-  Description   String @default("暂无描述") @map("description")
+  Description    String @default("暂无描述") @map("description")
   // 设备型号(物模型型号)
-  DeviceModelId BigInt @default(0) @map("device_model_id")
-
-  CreatedTime DateTime @default(now()) @map("created_time")
+  DeviceModelId  BigInt @default(0) @map("device_model_id")
+  // 设备组(保留)
+  GroupId       BigInt @default(0) @map("device_group_id")
+  // 所属组织
+  OrganizationId BigInt @default(0) @map("organization_id")
+  // 所属用户
+  AccountId      String @default("") @map("account_id")
+  // 设备状态(1:在线,2:离线,3:异常)
+  Status         Int    @default(1) @map("status")
+  // 认证Token
+  Token          String @default("") @map("token")
   // 是否禁用
   IsDisabled  Boolean  @default(false) @map("is_disabled")
   // 是否删除
@@ -215,6 +223,8 @@ model Device {
   CreatedBy   String   @map("created_by")
   // 更新人
   UpdatedBy   String   @map("updated_by")
+
+  @@map("device")
 }
 
 //·························废弃··············································//

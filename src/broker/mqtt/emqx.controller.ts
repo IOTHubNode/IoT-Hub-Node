@@ -1,10 +1,32 @@
-// eook模块
+// eo模块
 
 import { SUCCESS, PARAM_NOT_VALID } from '../../config/code/responseCode';
 //import { bigIntToString } from '../utils/util';
 
 
 class HookController {
+  // 设备连接认证接口
+  async Auth(ctx: any, next: any) { 
+
+    console.log('MQTT 连接认证');
+
+    // 获取客户端连接参数
+    const {username, password } = ctx.request.body;
+
+    // 判断用户名和密码是否正确
+    if (username === 'admin' && password === 'public') {
+      // 允许连接
+      ctx.body = {
+        "result": "allow"
+      }
+    }
+    else {
+      // 拒绝连接
+      ctx.body = {
+        "result": "deny"
+      }
+    }
+  }
 
   // webhook接口
   async Webhook(ctx: any, next: any) {
@@ -50,6 +72,8 @@ class HookController {
 
     await SUCCESS(ctx, '1', 'Webhook成功');
   }
+
+
 }
 
 

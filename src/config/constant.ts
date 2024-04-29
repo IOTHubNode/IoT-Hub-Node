@@ -42,6 +42,7 @@ export const PublicRouter = [
   /\/account\/register/,
   /\/favicon\.png/,
   /\/mqtt\/hook/,
+  /\/mqtt\/auth/,
 ];
 
 // 默认头像列表，注册随机分配
