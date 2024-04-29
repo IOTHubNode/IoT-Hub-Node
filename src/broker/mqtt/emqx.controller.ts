@@ -1,4 +1,4 @@
-// eo模块
+// e模块
 
 import { SUCCESS, PARAM_NOT_VALID } from '../../config/code/responseCode';
 //import { bigIntToString } from '../utils/util';
@@ -32,7 +32,7 @@ class HookController {
 
   // webhook接口
   async Webhook(ctx: any, next: any) {
-    console.log(ctx.request.body);
+    //console.log(ctx.request.body);
 
     const { event } = ctx.request.body;
     switch (event) {
@@ -61,7 +61,7 @@ class HookController {
         // 获取消息内容
         const { topic, payload } = ctx.request.body;
 
-        console.log(clientid, topic, payload);
+        //console.log(clientid, topic, payload);
 
         // 写入数据库
         await Service.writeMessage({ clientid, topic, payload });
