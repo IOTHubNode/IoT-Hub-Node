@@ -3,17 +3,17 @@
  * tags:
  *   name: 物模型管理
  *   description: 物模型管理
- *   baseurl: /v1
+ *   baseurl: /v1/d_model
  */
 import Router from 'koa-router';
-const router = new Router({ prefix: '/v1' });
+const router = new Router({ prefix: '/v1/d_model' });
 
 import Controller from '../controllers/device.model.controller';
 
 //#region 添加物模型
 /**
  * @swagger
- * /devicemodel:
+ * /d_model/devicemodel:
  *   post:
  *     summary: 添加物模型
  *     description: 添加物模型
@@ -31,13 +31,19 @@ import Controller from '../controllers/device.model.controller';
  *                 description: 物模型描述
  *               ConnectType:
  *                 description: 物模型连接类型
- *               Data:
+ *               CommunicationType:
+ *                 description: 物模型通讯类型
+ *               ProtocolType:
+ *                 description: 物模型协议类型
+ *               Content:
  *                 description: 物模型内容(json)
  *             example:
  *               Name: "四路继电器模块"
  *               Description: "四路继电器模块"
  *               ConnectType: "1"
- *               Data: "{}"
+ *               CommunicationType: "1"
+ *               ProtocolType: "1"
+ *               Content: {}
  *     responses:
  *       "200":
  *         description: OK
@@ -69,7 +75,7 @@ router.post('/devicemodel', Controller.post);
 //#region 查询全部物模型基本信息
 /**
  * @swagger
- * /devicemodels:
+ * /d_model/devicemodels:
  *   get:
  *     summary: 查询全部物模型基本信息
  *     description: 查询全部物模型基本信息
@@ -105,7 +111,7 @@ router.get('/devicemodels', Controller.getAll);
 //#region 查询某个物模型的详细信息
 /**
  * @swagger
- * /devicemodel/{id}:
+ * /d_model/devicemodel/{id}:
  *   get:
  *     summary: 查询某个物模型的详细信息
  *     description: 查询某个物模型的详细信息

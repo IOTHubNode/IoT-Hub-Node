@@ -22,7 +22,17 @@ class DeviceModelController {
           required: true,
           message: '物模型连接类型不能为空',
         },
-        Data: {
+        CommunicationType: {
+          type: 'string',
+          required: true,
+          message: '物模型设备通信类型不能为空',
+        },
+        ProtocolType: {
+          type: 'string',
+          required: true,
+          message: '物模型设备接入协议不能为空',
+        },
+        Content: {
           type: 'object',
           required: true,
           message: '物模型内容不能为空',
@@ -32,11 +42,12 @@ class DeviceModelController {
       await PARAM_NOT_VALID(ctx, error.messagr, error);
     }
     // 提取数据
-    const { Name, Description, ConnectType, Data } = ctx.request.body;
+    const { Name, Description, ConnectType, CommunicationType, ProtocolType, Content, Image } = ctx.request.body;
     const CreatedBy = ctx.state.user.AccountId;
     // Date转换为json
     //const Data = ctx.request.body.Data;
-    const result = await DeviceModelService.add(ctx, Name, Description, ConnectType, Data, CreatedBy);
+
+    const result = await DeviceModelService.add(ctx, Name, Description, ConnectType, CommunicationType, ProtocolType, Content, Image, CreatedBy);
     await SUCCESS(ctx, bigIntToString(result), '添加物模型成功');
   }
 

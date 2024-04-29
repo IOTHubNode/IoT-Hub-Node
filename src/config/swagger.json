@@ -17,7 +17,7 @@
   },
   "servers": [
     {
-      "url": "http://172.31.32.1:10000/v1",
+      "url": "http://www.duruofu.xyz:10000/v1",
       "description": "API V1"
     }
   ],
@@ -620,7 +620,21 @@
         }
       }
     },
-    "/devicemodel": {
+    "/util/local_picture": {
+      "post": {
+        "summary": "图片上传",
+        "description": "图片上传",
+        "tags": [
+          "工具路由"
+        ],
+        "responses": {
+          "200": {
+            "description": "图片上传"
+          }
+        }
+      }
+    },
+    "/d_model/devicemodel": {
       "post": {
         "summary": "添加物模型",
         "description": "添加物模型",
@@ -643,7 +657,13 @@
                   "ConnectType": {
                     "description": "物模型连接类型"
                   },
-                  "Data": {
+                  "CommunicationType": {
+                    "description": "物模型通讯类型"
+                  },
+                  "ProtocolType": {
+                    "description": "物模型协议类型"
+                  },
+                  "Content": {
                     "description": "物模型内容(json)"
                   }
                 },
@@ -651,7 +671,9 @@
                   "Name": "四路继电器模块",
                   "Description": "四路继电器模块",
                   "ConnectType": "1",
-                  "Data": "{}"
+                  "CommunicationType": "1",
+                  "ProtocolType": "1",
+                  "Content": {}
                 }
               }
             }
@@ -707,7 +729,7 @@
         ]
       }
     },
-    "/devicemodels": {
+    "/d_model/devicemodels": {
       "get": {
         "summary": "查询全部物模型基本信息",
         "description": "查询全部物模型基本信息",
@@ -764,7 +786,7 @@
         ]
       }
     },
-    "/devicemodel/{id}": {
+    "/d_model/devicemodel/{id}": {
       "get": {
         "summary": "查询某个物模型的详细信息",
         "description": "查询某个物模型的详细信息",
@@ -2172,9 +2194,14 @@
       "baseurl": "/v1/account"
     },
     {
+      "name": "工具路由",
+      "description": "工具路由",
+      "baseurl": "/v1/util"
+    },
+    {
       "name": "物模型管理",
       "description": "物模型管理",
-      "baseurl": "/v1"
+      "baseurl": "/v1/d_model"
     },
     {
       "name": "数据库测试",

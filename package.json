@@ -14,8 +14,8 @@
     "format": "prettier --config .prettierrc . --write",
     "prepare": "husky install",
     "cz": "cz",
-    "opendb": "npx prisma studio --schema ./src/prisma/schema.prisma",
-    "updatedb": "npx prisma migrate dev --schema ./src/prisma/schema.prisma",
+    "opendb": "npx prisma studio --schema ./src/db/prisma/schema.prisma",
+    "updatedb": "npx prisma migrate dev --schema ./src/db/prisma/schema.prisma",
     "updatePermission": "ts-node-dev ./src/utils/permission.ts",
     "addmodule": "ts-node ./src/script/createModule.ts"
   },
@@ -23,6 +23,8 @@
   "author": "DuRuofu",
   "license": "ISC",
   "dependencies": {
+    "@influxdata/influxdb-client": "^1.33.2",
+    "@influxdata/influxdb-client-apis": "^1.33.2",
     "@prisma/client": "^5.12.1",
     "casbin": "^5.28.0",
     "casbin-prisma-adapter": "^1.5.0",
@@ -32,6 +34,7 @@
     "jsonwebtoken": "^9.0.2",
     "koa": "^2.15.0",
     "koa-body": "^6.0.1",
+    "koa-mount": "^4.0.0",
     "koa-parameter": "^3.0.1",
     "koa-router": "^12.0.1",
     "koa-static": "^5.0.0",

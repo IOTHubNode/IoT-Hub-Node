@@ -14,6 +14,11 @@ export const PROJECT = {
   name: process.env.PROJECT_NAME || 'IOT-Hub-Node',
 };
 
+// 项目域名
+export const DOMAIN = {
+  domain: process.env.PROJECT_DOMAIN || 'localhost',
+}
+
 // JWT配置参数
 export const JWT = {
   secret: process.env.TOKEN_SECRET_KEY || 'SZw*QCX684K$d10JYWBpQFQ__pI)VAN@HZnmnjS', //token密钥
@@ -37,6 +42,7 @@ export const PublicRouter = [
   /\/account\/register/,
   /\/favicon\.png/,
   /\/mqtt\/hook/,
+  /\/mqtt\/auth/,
 ];
 
 // 默认头像列表，注册随机分配
@@ -198,6 +204,7 @@ export const SALT = {
   saltRounds: process.env.SALT_SECRET_KEY || `1233`,
 };
 
+// 用户默认角色值
 export const DEFAULT_ROLE = {
   ROLE_VALUE: 'default',
 };

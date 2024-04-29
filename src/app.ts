@@ -6,8 +6,9 @@ import Koa from 'koa';
 import Cors from 'koa2-cors';
 import koaBody, { HttpMethodEnum } from 'koa-body';
 import Static from 'koa-static';
+const mount = require('koa-mount')
 import parameter from 'koa-parameter';
-import { PORT } from './config/constant';
+import { PORT,DOMAIN } from './config/constant';
 import { loggerMiddleware } from './middlewares/log';
 import { errorHandler } from './middlewares/error';
 import { corsHandler } from './middlewares/cors';
@@ -36,7 +37,13 @@ app.use(Jwtauth);
 
 // 挂载body解析中间件
 app.use(
-  koaBody({ parsedMethods: [HttpMethodEnum.POST, HttpMethodEnum.PUT, HttpMethodEnum.PATCH, HttpMethodEnum.GET, HttpMethodEnum.DELETE] })
+  // 设置body解析中间件
+  koaBody({ parsedMethods: [HttpMethodEnum.POST, HttpMethodEnum.PUT, HttpMethodEnum.PATCH, HttpMethodEnum.GET, HttpMethodEnum.DELETE],multipart: true,formidable: {
+    maxFileSize: 200 * 1024 * 1024, // 设置文件上传大小限制，默认2M
+    uploadDir: path.join(__dirname, '../public/upload'), // 设置文件上传目录
+    keepExtensions: true, // 保持文件的后缀
+  }
+  })
 );
 
 // 挂载权限中间件
@@ -46,11 +53,11 @@ app.use(Casbin.authz);
 app.use(parameter(app));
 
 // 挂载静态资源中间件
-app.use(Static(path.join(__dirname + '/../public')));
+app.use(mount('/public', Static(path.join(__dirname) + '/../public/')))
 
 // 业务路由自动挂载
 app.use(router.routes()).use(router.allowedMethods());
-
+ 
 // 挂载broker路由
 app.use(broker_router.routes()).use(broker_router.allowedMethods());
 
@@ -66,8 +73,8 @@ printLogo();
 //https 服务
 const httpsPort = PORT.https;
 const ACoptions = {
-  key: fs.readFileSync(path.resolve(__dirname, './config/assets/example.com.key')), // SSL私钥文件路径
-  cert: fs.readFileSync(path.resolve(__dirname, './config/assets/example.com_bundle.crt')), // SSL证书文件路径
+  key: fs.readFileSync(path.resolve(__dirname, './config/assets/duruofu.xyz.key')), // SSL私钥文件路径
+  cert: fs.readFileSync(path.resolve(__dirname, './config/assets/duruofu.xyz_bundle.crt')), // SSL证书文件路径
 };
 const httpsServer = https.createServer(ACoptions, app.callback());
 httpsServer.listen(httpsPort);
@@ -92,7 +99,7 @@ httpServer.on('error', (err: Error) => {
 httpServer.on('listening', () => {
   const ip = getIpAddress();
   const address = `http://${ip}:${httpPort}`;
-  const localAddress = `http://localhost:${httpPort}`;
+  const localAddress = `http://${DOMAIN.domain}:${httpPort}`;
   console.log(`app started at address:${localAddress} or ${address}`);
   console.log(`API documentation:${localAddress}/api-docs or ${address}/api-docs`);
 });

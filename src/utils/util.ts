@@ -1,8 +1,13 @@
 import { Context } from 'vm';
 import figlet from 'figlet';
 import { PROJECT } from '../config/constant';
+//上传图片使用的模块
+import formidable from "formidable";
+import path from "path";
+import fs from "fs";
 
 import OS from 'os';
+import { constants } from 'buffer';
 /*获取当前ip地址*/
 export const getIpAddress = () => {
   const interfaces = OS.networkInterfaces();
@@ -63,3 +68,46 @@ export const printLogo = () => {
     console.dir(err);
   }
 };
+
+
+// 向服务器上传图片
+export const uploadPicture = (ctx: any, next: any) => {
+  console.log("文件上传");
+  const file = ctx.request.files.file; // 获取上传文件
+  // 检查文件
+  if (!file) {
+    ctx.status = 400;
+    ctx.body = {
+      msg: '请选择要上传的文件',
+    };
+    return;
+  }
+
+  const fileType = ['image/jpeg', 'image/png', 'image/gif']
+
+  // 确保文件类型为图片
+  if (!fileType.includes(file.mimetype)) {
+    // 删除文件
+    fs.unlink(file.filepath, (err) => {
+      if (err) {
+        console.error(err);
+      }
+    })
+    ctx.status = 400;
+    ctx.body = {
+      code: 400,
+      msg: '只能上传图片文件(jpg, jpeg, png, gif)',
+    };
+    return;
+  }
+
+  // 截取路径
+  const filePath = file.filepath.split(path.sep).slice(-3).join(path.sep);
+
+  // 返回文件的路径
+  ctx.body = {
+    code: 200,
+    msg: '文件上传成功',
+    data: `/${filePath}`,
+  }
+}

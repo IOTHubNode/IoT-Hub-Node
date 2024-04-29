@@ -9,7 +9,7 @@ log4js.configure({
   appenders: {
     everything: {
       type: 'dateFile',
-      filename: 'logs\\log',
+      filename: 'logs/\log',
       pattern: 'yyyy-MM-dd.log',
       alwaysIncludePattern: true, // 设置文件名称为 filename + pattern
       keepFileExt: true,
