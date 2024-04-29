@@ -203,6 +203,7 @@ export const SALT = {
   saltRounds: process.env.SALT_SECRET_KEY || `1233`,
 };
 
+// 用户默认角色值
 export const DEFAULT_ROLE = {
   ROLE_VALUE: 'default',
 };

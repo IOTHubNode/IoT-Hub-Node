@@ -14,8 +14,8 @@
     "format": "prettier --config .prettierrc . --write",
     "prepare": "husky install",
     "cz": "cz",
-    "opendb": "npx prisma studio --schema ./src/prisma/schema.prisma",
-    "updatedb": "npx prisma migrate dev --schema ./src/prisma/schema.prisma",
+    "opendb": "npx prisma studio --schema ./src/db/prisma/schema.prisma",
+    "updatedb": "npx prisma migrate dev --schema ./src/db/prisma/schema.prisma",
     "updatePermission": "ts-node-dev ./src/utils/permission.ts",
     "addmodule": "ts-node ./src/script/createModule.ts"
   },
