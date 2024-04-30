@@ -43,16 +43,16 @@ class HookController {
         console.log('事件: 连接断开');
         break;
       case 'client.connack':
-        console.log('事件: 连接确认');
+        //console.log('事件: 连接确认');
         break;
       case 'client.check_authz_complete':
-        console.log('事件: 授权结果');
+        //console.log('事件: 授权结果');
         break;
       case 'session.subscribed':
-        console.log('事件: 会话订阅完成');
+        //console.log('事件: 会话订阅完成');
         break;
       case 'session.unsubscribed':
-        console.log('事件: 会话取消订阅完成');
+        //console.log('事件: 会话取消订阅完成');
         break;
       case 'message.publish':
         console.log('事件: 消息发布');
@@ -68,13 +68,13 @@ class HookController {
 
         break;
       case 'message.delivered':
-        console.log('事件: 消息已投递');
+        //console.log('事件: 消息已投递');
         break;
       case 'message.acked':
-        console.log('事件: 消息应答');
+        //console.log('事件: 消息应答');
         break;
       case 'message.dropped':
-        console.log('事件: 消息丢弃');
+        // console.log('事件: 消息丢弃');
         break;
       default:
         console.log('未知事件');
