@@ -41,6 +41,7 @@
     "koa2-cors": "^2.0.6",
     "koa2-swagger-ui": "^5.10.0",
     "log4js": "^6.9.1",
+    "node-schedule": "^2.1.1",
     "pm2": "^5.3.0",
     "swagger-jsdoc": "^6.2.8",
     "ts-node-dev": "^2.0.0",
