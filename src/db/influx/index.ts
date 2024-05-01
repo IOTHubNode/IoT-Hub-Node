@@ -1,4 +1,4 @@
-import { InfluxDB, Point } from '@influxdata/influxdb-client'
+impt { InfluxDB, Point } from '@influxdata/influxdb-client'
 
 class InfluxClient {
 	client: any;
@@ -12,7 +12,6 @@ class InfluxClient {
 		
 		const url = 'http://www.duruofu.xyz:8086'
 		this.client = new InfluxDB({ url, token })
-		console.log('influxdb connected')
 	}
 
 	async write(data: any) {

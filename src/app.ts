@@ -1,4 +1,4 @@
-import fsfrom 'fs';
+import fs from 'fs';
 import http from 'http';
 import https from 'https';
 import path from 'path';
@@ -52,13 +52,11 @@ app.use(Casbin.authz);
 // 挂载参数校验中间件
 app.use(parameter(app));
 
-// 挂载静态资源中间件
+// 挂载Web网页
 app.use(Static(path.join(__dirname) + '/../web/dist'))
 
+// 挂载静态资源中间件
 app.use(mount('/public', Static(path.join(__dirname) + '/../public/')))
-
-// app.use(mount('/', Static(path.join(__dirname) + '/../views/')))
-// app.use(mount('/assets', Static(path.join(__dirname) + '/../views/assets/')))
 
 // 业务路由自动挂载
 app.use(router.routes()).use(router.allowedMethods());
@@ -72,10 +70,10 @@ app.use(koaSwagger({ routePrefix: '/api-docs', swaggerOptions: { url: '/docs' } 
 // 挂载响应处理中间件
 app.use(responseHandler);
 
-// 启动服务
+// 打印logo
 printLogo();
 
-//https 服务
+// //https 服务
 const httpsPort = PORT.https;
 const ACoptions = {
   key: fs.readFileSync(path.resolve(__dirname, './config/assets/duruofu.xyz.key')), // SSL私钥文件路径
@@ -91,7 +89,7 @@ httpsServer.on('listening', () => {
   const ip = getIpAddress();
   const address = `https://${ip}:${httpsPort}`;
   const localAddress = `https://localhost:${httpsPort}`;
-  console.log(`app started at address:${localAddress} or ${address}`);
+  console.log(`App started at address:${localAddress} or ${address}`);
 });
 
 //http 服务
@@ -105,6 +103,46 @@ httpServer.on('listening', () => {
   const ip = getIpAddress();
   const address = `http://${ip}:${httpPort}`;
   const localAddress = `http://${DOMAIN.domain}:${httpPort}`;
-  console.log(`app started at address:${localAddress} or ${address}`);
+  console.log(`App started at address:${localAddress} or ${address}`);
   console.log(`API documentation:${localAddress}/api-docs or ${address}/api-docs`);
+});
+
+
+
+// 创建用于单独提供 Web 网页的应用程序实例
+const webApp = new Koa();
+
+// 挂载跨域中间件
+webApp.use(Cors(corsHandler));
+
+// 挂载静态资源中间件用于 Web 网页
+webApp.use(Static(path.join(__dirname) + '/../web/dist'));
+
+// 路由重定向(根目录定向为Web网页)
+webApp.use(async (ctx, next) => {
+  // 根目录重定向
+  if (ctx.path === '/') {
+    ctx.redirect('/index.html');
+  } else {
+    await next();
+  }
+  // 404
+  if (ctx.status === 404) {
+    ctx.redirect('/index.html');
+  }
+})
+
+// 启动单独的 HTTPS 服务器用于 Web 网页
+const webPort = PORT.webhttps;
+const httpsWebServer = https.createServer(ACoptions, webApp.callback());
+httpsWebServer.listen(webPort);
+httpsWebServer.on('error', (err) => {
+  console.log(err);
+});
+
+httpsWebServer.on('listening', () => {
+  const ip = getIpAddress();
+  const address = `https://${ip}:${webPort}`;
+  const localAddress = `https://${DOMAIN.domain}:${webPort}`;
+  console.log(`Webapp started at address:${localAddress} or ${address}`);
 });
