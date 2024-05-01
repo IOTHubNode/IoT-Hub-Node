@@ -21,6 +21,11 @@ class Casbin {
   // 全局路由守卫
   authz = async (ctx: any, next: any) => {
     const { path, method } = ctx;
+    // 检查是否是静态资源请求(后缀为 .js .css .png .jpg)
+    if (ctx.path.includes('.')) {
+      await next();
+      return;
+    }
     // 检查当前请求的路径，如果匹配指定的路由，则跳过认证
     if (checkIgnore(ctx.path)) {
       await next();

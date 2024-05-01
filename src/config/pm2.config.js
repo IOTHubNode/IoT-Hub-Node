@@ -23,7 +23,7 @@ module.exports = {
         '.idea',
         'log',
       ],
-      max_memory_restart: '300M', //内存占用超过300M后重启
+      //max_memory_restart: '500M', //内存占用超过300M后重启
       restart_delay: '3000',
       env: {
         NODE_ENV: ENV.production, //process.env.NODE_ENV值
@@ -32,7 +32,7 @@ module.exports = {
     {
       name: 'test', //需与package.json里--only 后缀名相同
       script: './src/app.ts',
-      interpreter: './node_modules/.bin/ts-node', //指定解释器
+      interpreter: '../.bin/ts-node', //指定解释器
       args: 'one two',
       instances: 1,
       cron_restart: '0 03 * * *', //每天凌晨3点重启；

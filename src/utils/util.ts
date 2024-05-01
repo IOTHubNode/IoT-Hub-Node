@@ -2,9 +2,9 @@ import { Context } from 'vm';
 import figlet from 'figlet';
 import { PROJECT } from '../config/constant';
 //上传图片使用的模块
-import formidable from "formidable";
-import path from "path";
-import fs from "fs";
+import formidable from 'formidable';
+import path from 'path';
+import fs from 'fs';
 
 import OS from 'os';
 import { constants } from 'buffer';
@@ -69,10 +69,9 @@ export const printLogo = () => {
   }
 };
 
-
 // 向服务器上传图片
 export const uploadPicture = (ctx: any, next: any) => {
-  console.log("文件上传");
+  console.log('文件上传');
   const file = ctx.request.files.file; // 获取上传文件
   // 检查文件
   if (!file) {
@@ -83,7 +82,7 @@ export const uploadPicture = (ctx: any, next: any) => {
     return;
   }
 
-  const fileType = ['image/jpeg', 'image/png', 'image/gif']
+  const fileType = ['image/jpeg', 'image/png', 'image/gif'];
 
   // 确保文件类型为图片
   if (!fileType.includes(file.mimetype)) {
@@ -92,7 +91,7 @@ export const uploadPicture = (ctx: any, next: any) => {
       if (err) {
         console.error(err);
       }
-    })
+    });
     ctx.status = 400;
     ctx.body = {
       code: 400,
@@ -109,5 +108,5 @@ export const uploadPicture = (ctx: any, next: any) => {
     code: 200,
     msg: '文件上传成功',
     data: `/${filePath}`,
-  }
-}
+  };
+};

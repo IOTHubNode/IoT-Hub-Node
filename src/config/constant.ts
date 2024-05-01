@@ -17,7 +17,7 @@ export const PROJECT = {
 // 项目域名
 export const DOMAIN = {
   domain: process.env.PROJECT_DOMAIN || 'localhost',
-}
+};
 
 // JWT配置参数
 export const JWT = {
@@ -29,10 +29,21 @@ export const JWT = {
 export const PORT = {
   http: process.env.SERVER_PORT_HTTP || 3000,
   https: process.env.SERVER_PORT_HTTPS || 3001,
+  webhttps: process.env.WEB_PORT_HTTPS || 3002,
 };
 
-// 公共路由(不用jwt验证)
+// Influxdb配置参数
+export const INFLUXDB = {
+  url: process.env.INFLUXDB_URL || 'http://localhost:8086',
+  token: process.env.INFLUXDB_TOKEN || '',
+  org: process.env.INFLUX_ORG || 'iot',
+  bucket: process.env.INFLUXDB_BUCKET || 'test',
+};
+
+// 开放路由(不用jwt验证)
 export const PublicRouter = [
+  /^\/$/,
+  /\/login/,
   /\/api-docs/,
   /\/test/,
   /\/example/,
