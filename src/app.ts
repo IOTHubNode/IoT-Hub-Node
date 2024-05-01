@@ -1,4 +1,4 @@
-import fs from 'fs';
+import fsfrom 'fs';
 import http from 'http';
 import https from 'https';
 import path from 'path';
@@ -6,7 +6,7 @@ import Koa from 'koa';
 import Cors from 'koa2-cors';
 import koaBody, { HttpMethodEnum } from 'koa-body';
 import Static from 'koa-static';
-const mount = require('koa-mount')
+import mount from 'koa-mount';
 import parameter from 'koa-parameter';
 import { PORT,DOMAIN } from './config/constant';
 import { loggerMiddleware } from './middlewares/log';
@@ -32,7 +32,7 @@ app.use(errorHandler);
 // 挂载跨域中间件
 app.use(Cors(corsHandler));
 
-// 挂载jwt中间件
+// 挂载jwt中间件,token认证拦截
 app.use(Jwtauth);
 
 // 挂载body解析中间件
@@ -53,7 +53,12 @@ app.use(Casbin.authz);
 app.use(parameter(app));
 
 // 挂载静态资源中间件
+app.use(Static(path.join(__dirname) + '/../web/dist'))
+
 app.use(mount('/public', Static(path.join(__dirname) + '/../public/')))
+
+// app.use(mount('/', Static(path.join(__dirname) + '/../views/')))
+// app.use(mount('/assets', Static(path.join(__dirname) + '/../views/assets/')))
 
 // 业务路由自动挂载
 app.use(router.routes()).use(router.allowedMethods());

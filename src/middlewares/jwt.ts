@@ -7,7 +7,13 @@ import { TOKEN_EXPIRED, TOKEN_INVALID } from '../config/code/responseCode';
 import { PublicRouter } from '../config/constant';
 
 export const Jwtauth = async (ctx: Koa.Context, next: Koa.Next) => {
-  // 检查当前请求的路径，如果匹配指定的路由，则跳过认证
+  // 检查是否是静态资源请求(后缀为 .js .css .png .jpg)
+  if (ctx.path.includes('.')) {
+    await next();
+    return;
+  }
+
+  // 检查当前请求的路径，如果匹配开放路由，则跳过认证
   if (checkIgnore(ctx.path)) {
     await next();
     return;

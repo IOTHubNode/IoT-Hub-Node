@@ -31,8 +31,10 @@ export const PORT = {
   https: process.env.SERVER_PORT_HTTPS || 3001,
 };
 
-// 公共路由(不用jwt验证)
+// 开放路由(不用jwt验证)
 export const PublicRouter = [
+  /^\/$/,
+  /\/login/,
   /\/api-docs/,
   /\/test/,
   /\/example/,
