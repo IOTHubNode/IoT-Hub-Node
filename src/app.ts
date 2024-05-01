@@ -8,17 +8,17 @@ import koaBody, { HttpMethodEnum } from 'koa-body';
 import Static from 'koa-static';
 import mount from 'koa-mount';
 import parameter from 'koa-parameter';
-import { PORT,DOMAIN } from './config/constant';
+import Casbin from './middlewares/casbin';
+import router from './routers/index';
+import broker_router from './broker/index';
+import { PORT, DOMAIN } from './config/constant';
 import { loggerMiddleware } from './middlewares/log';
 import { errorHandler } from './middlewares/error';
 import { corsHandler } from './middlewares/cors';
 import { responseHandler } from './middlewares/response';
 import { getIpAddress, printLogo } from './utils/util';
-import router from './routers/index';
-import broker_router from './broker/index';
 import { koaSwagger } from 'koa2-swagger-ui';
 import { Jwtauth } from './middlewares/jwt';
-import Casbin from './middlewares/casbin';
 
 // 创建APP实例
 const app = new Koa();
@@ -38,11 +38,14 @@ app.use(Jwtauth);
 // 挂载body解析中间件
 app.use(
   // 设置body解析中间件
-  koaBody({ parsedMethods: [HttpMethodEnum.POST, HttpMethodEnum.PUT, HttpMethodEnum.PATCH, HttpMethodEnum.GET, HttpMethodEnum.DELETE],multipart: true,formidable: {
-    maxFileSize: 200 * 1024 * 1024, // 设置文件上传大小限制，默认2M
-    uploadDir: path.join(__dirname, '../public/upload'), // 设置文件上传目录
-    keepExtensions: true, // 保持文件的后缀
-  }
+  koaBody({
+    parsedMethods: [HttpMethodEnum.POST, HttpMethodEnum.PUT, HttpMethodEnum.PATCH, HttpMethodEnum.GET, HttpMethodEnum.DELETE],
+    multipart: true,
+    formidable: {
+      maxFileSize: 200 * 1024 * 1024, // 设置文件上传大小限制，默认2M
+      uploadDir: path.join(__dirname, '../public/upload'), // 设置文件上传目录
+      keepExtensions: true, // 保持文件的后缀
+    },
   })
 );
 
@@ -53,14 +56,14 @@ app.use(Casbin.authz);
 app.use(parameter(app));
 
 // 挂载Web网页
-app.use(Static(path.join(__dirname) + '/../web/dist'))
+app.use(Static(path.join(__dirname) + '/../web/dist'));
 
 // 挂载静态资源中间件
-app.use(mount('/public', Static(path.join(__dirname) + '/../public/')))
+app.use(mount('/public', Static(path.join(__dirname) + '/../public/')));
 
 // 业务路由自动挂载
 app.use(router.routes()).use(router.allowedMethods());
- 
+
 // 挂载broker路由
 app.use(broker_router.routes()).use(broker_router.allowedMethods());
 
@@ -107,8 +110,6 @@ httpServer.on('listening', () => {
   console.log(`API documentation:${localAddress}/api-docs or ${address}/api-docs`);
 });
 
-
-
 // 创建用于单独提供 Web 网页的应用程序实例
 const webApp = new Koa();
 
@@ -130,7 +131,7 @@ webApp.use(async (ctx, next) => {
   if (ctx.status === 404) {
     ctx.redirect('/index.html');
   }
-})
+});
 
 // 启动单独的 HTTPS 服务器用于 Web 网页
 const webPort = PORT.webhttps;
