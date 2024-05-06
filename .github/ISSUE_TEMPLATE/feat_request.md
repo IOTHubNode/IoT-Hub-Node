@@ -2,7 +2,7 @@
 name: feat_request
 about: New feature suggestions (Use Chinese or English)
 labels: enhancement
-title: "[feat]: [FEATURE NAME]"
+title: '[feat]: FEATURE NAME'
 ---
 
 **Is your feature request related to a problem? Please describe.**
