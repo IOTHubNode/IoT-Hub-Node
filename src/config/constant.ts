@@ -1,4 +1,4 @@
-//全局通用配置参数
+//全通用配置参数
 import dotenv from 'dotenv';
 
 // 读取环境变量
