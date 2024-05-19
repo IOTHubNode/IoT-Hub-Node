@@ -1,10 +1,11 @@
-import fs from 'fs';
+import f from 'fs';
 import http from 'http';
 import https from 'https';
 import path from 'path';
 import Koa from 'koa';
 import Cors from 'koa2-cors';
 import koaBody, { HttpMethodEnum } from 'koa-body';
+import { historyApiFallback } from 'koa2-connect-history-api-fallback';
 import Static from 'koa-static';
 import mount from 'koa-mount';
 import parameter from 'koa-parameter';
@@ -113,22 +114,24 @@ const webApp = new Koa();
 // 挂载跨域中间件
 webApp.use(Cors(corsHandler));
 
+webApp.use(historyApiFallback());
+
 // 挂载静态资源中间件用于 Web 网页
 webApp.use(Static(path.join(__dirname) + '/../web/dist'));
 
-// 路由重定向(根目录定向为Web网页)
-webApp.use(async (ctx, next) => {
-  // 根目录重定向
-  if (ctx.path === '/') {
-    ctx.redirect('/index.html');
-  } else {
-    await next();
-  }
-  // 404
-  if (ctx.status === 404) {
-    ctx.redirect('/index.html');
-  }
-});
+// // 路由重定向(根目录定向为Web网页)
+// webApp.use(async (ctx, next) => {
+//   // 根目录重定向
+//   if (ctx.path === '/') {
+//     ctx.redirect('/index.html');
+//   } else {
+//     await next();
+//   }
+//   // 404
+//   if (ctx.status === 404) {
+//     ctx.redirect('/index.html');
+//   }
+// });
 
 // 启动单独的 HTTPS 服务器用于 Web 网页
 const webPort = PORT.webhttps;
