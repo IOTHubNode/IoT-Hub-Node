@@ -55,9 +55,6 @@ app.use(Casbin.authz);
 // 挂载参数校验中间件
 app.use(parameter(app));
 
-// 挂载Web网页
-app.use(Static(path.join(__dirname) + '/../web/dist'));
-
 // 挂载静态资源中间件
 app.use(mount('/public', Static(path.join(__dirname) + '/../public/')));
 
