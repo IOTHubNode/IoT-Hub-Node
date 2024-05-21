@@ -47,7 +47,17 @@ class DeviceModelController {
     // Date转换为json
     //const Data = ctx.request.body.Data;
 
-    const result = await DeviceModelService.add(ctx, Name, Description, ConnectType, CommunicationType, ProtocolType, Content, Image, CreatedBy);
+    const result = await DeviceModelService.add(
+      ctx,
+      Name,
+      Description,
+      ConnectType,
+      CommunicationType,
+      ProtocolType,
+      Content,
+      Image,
+      CreatedBy
+    );
     await SUCCESS(ctx, bigIntToString(result), '添加物模型成功');
   }
 
