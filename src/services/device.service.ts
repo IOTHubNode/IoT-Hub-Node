@@ -38,6 +38,9 @@ class DeviceService {
   async getAll(ctx: any) {
     try {
       const result = await prisma.device.findMany({
+        where: {
+          IsDeleted: false,
+        },
         select: {
           DeviceId: true,
           Name: true,
@@ -46,8 +49,12 @@ class DeviceService {
           OrganizationId: true,
           AccountId: true,
           Status: true,
-          CreatedTime: true,
-          UpdatedTime: true,
+          DeviceModel: {
+            select: {
+              Name: true,
+              Image: true,
+            },
+          },
         },
       });
       return result;

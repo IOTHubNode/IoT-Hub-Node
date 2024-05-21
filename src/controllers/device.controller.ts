@@ -8,40 +8,36 @@ class DeviceModelController {
   // 添加
   async post(ctx: any, next: any) {
     // 数据校验
-    // try {
-    //   ctx.verifyParams({
-    //     Name: {
-    //       type: 'string',
-    //       required: true,
-    //       message: '物模型名称不能为空',
-    //     },
-    //     ConnectType: {
-    //       type: 'string',
-    //       required: true,
-    //       message: '物模型连接类型不能为空',
-    //     },
-    //     CommunicationType: {
-    //       type: 'string',
-    //       required: true,
-    //       message: '物模型设备通信类型不能为空',
-    //     },
-    //     ProtocolType: {
-    //       type: 'string',
-    //       required: true,
-    //       message: '物模型设备接入协议不能为空',
-    //     },
-    //     Content: {
-    //       type: 'object',
-    //       required: true,
-    //       message: '物模型内容不能为空',
-    //     },
-    //   });
-    // } catch (error) {
-    //   await PARAM_NOT_VALID(ctx, error.messagr, error);
-    // }
+    try {
+      ctx.verifyParams({
+        Name: {
+          type: 'string',
+          required: true,
+          message: '物模型名称不能为空',
+        },
+        DeviceModelId: {
+          type: 'string',
+          required: true,
+          message: '物模型连接类型不能为空',
+        },
+        DeviceGroupId: {
+          type: 'string',
+          required: true,
+          message: '物模型设备通信类型不能为空',
+        },
+        OrganizationId: {
+          type: 'string',
+          required: true,
+          message: '物模型设备接入协议不能为空',
+        },
+      });
+    } catch (error) {
+      await PARAM_NOT_VALID(ctx, error.messagr, error);
+    }
     // 提取数据
-    const { Name, Description, DeviceModelId, DeviceGroupId, OrganizationId, AccountId, Status } = ctx.request.body;
-    const CreatedBy = ctx.state.user.AccountId;
+    const { Name, Description, DeviceModelId, DeviceGroupId, OrganizationId } = ctx.request.body;
+    const AccountId = ctx.state.user.AccountId;
+    const CreatedBy = AccountId;
 
     const result = await DeviceService.add(ctx, Name, Description, DeviceModelId, DeviceGroupId, OrganizationId, AccountId, CreatedBy);
     await SUCCESS(ctx, bigIntToString(result), '添加物模型成功');

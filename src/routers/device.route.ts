@@ -34,8 +34,6 @@ import Controller from '../controllers/device.controller';
  *                 description: 设备组
  *               OrganizationId:
  *                 description: 所属组织
- *               AccountId:
- *                 description: 所属用户
  *               Status:
  *                 description: 设备状态
  *             example:
@@ -44,7 +42,6 @@ import Controller from '../controllers/device.controller';
  *               DeviceModelId: "1"
  *               DeviceGroupId: "1"
  *               OrganizationId: "1"
- *               AccountId: "121231"
  *     responses:
  *       "200":
  *         description: OK
