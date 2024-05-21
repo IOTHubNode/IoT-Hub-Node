@@ -38,7 +38,7 @@ class PermissionService {
   async getPermission(ctx, type: number) {
     let whereCondition: any;
 
-    console.log('type:', type);
+    //console.log('type:', type);
     if (type == 1) {
       whereCondition = {
         Type: { in: [1, 2] },

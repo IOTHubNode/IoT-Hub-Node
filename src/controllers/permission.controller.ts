@@ -208,7 +208,7 @@ class PermissionController {
     // 查询角色id对应的角色值
     const role = await PermissionService.getNameByRoleId(ctx, +id);
     // 查询权限id对应的权限值
-    console.log(Permissions);
+    //console.log(Permissions);
     const data = await PermissionService.getPermissions(ctx, Permissions);
     // 将每个对象转换为一个包含 RuleValue 和 Action 的数组
     const transformedArray = data.map((rule) => [rule.RuleValue, rule.Action]);

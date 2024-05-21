@@ -74,7 +74,7 @@ app.use(responseHandler);
 // 打印logo
 printLogo();
 
-// //https 服务
+// https 服务
 const httpsPort = PORT.https;
 const ACoptions = {
   key: fs.readFileSync(path.resolve(__dirname, './config/assets/duruofu.xyz.key')), // SSL私钥文件路径
@@ -114,24 +114,11 @@ const webApp = new Koa();
 // 挂载跨域中间件
 webApp.use(Cors(corsHandler));
 
+// 挂载历史路由中间件
 webApp.use(historyApiFallback());
 
 // 挂载静态资源中间件用于 Web 网页
 webApp.use(Static(path.join(__dirname) + '/../web/dist'));
-
-// // 路由重定向(根目录定向为Web网页)
-// webApp.use(async (ctx, next) => {
-//   // 根目录重定向
-//   if (ctx.path === '/') {
-//     ctx.redirect('/index.html');
-//   } else {
-//     await next();
-//   }
-//   // 404
-//   if (ctx.status === 404) {
-//     ctx.redirect('/index.html');
-//   }
-// });
 
 // 启动单独的 HTTPS 服务器用于 Web 网页
 const webPort = PORT.webhttps;
