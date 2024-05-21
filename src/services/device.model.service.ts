@@ -51,8 +51,25 @@ class DeviceModelService {
           ConnectType: true,
           CreatedTime: true,
           UpdatedTime: true,
+          Device: {
+            // 查询总数
+            select: {
+              DeviceId: true,
+            },
+          },
         },
       });
+
+      // 优化返回值格式
+      const data = result.map((model) => {
+        return {
+          ...model,
+          Device: model.Device.map((device) => Number(device.DeviceId)),
+        };
+      });
+
+      return data;
+
       return result;
     } catch (error) {
       console.log(error);
