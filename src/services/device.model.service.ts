@@ -94,6 +94,14 @@ class DeviceModelService {
           Content: true,
           CreatedTime: true,
           UpdatedTime: true,
+
+          Device: {
+            select: {
+              DeviceId: true,
+              Name: true,
+              Description: true,
+            },
+          },
         },
       });
       return result;

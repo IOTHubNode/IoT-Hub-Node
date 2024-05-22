@@ -91,6 +91,24 @@ class DeviceService {
       await DB_FAIL(ctx);
     }
   }
+
+  // 更改设备状态
+  async updateStatus(ctx: any, id: number, status: number) {
+    try {
+      const result = await prisma.device.update({
+        where: {
+          DeviceId: id,
+        },
+        data: {
+          Status: status,
+        },
+      });
+      return result;
+    } catch (error) {
+      console.log(error);
+      await DB_FAIL(ctx);
+    }
+  }
 }
 
 export default new DeviceService();
