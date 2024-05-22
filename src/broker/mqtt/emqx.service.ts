@@ -1,14 +1,39 @@
 import { Point } from '@influxdata/influxdb-client';
 import InfluxClient from '../../db/influx/index';
 import { DB_FAIL } from '../../config/code/responseCode';
+import { INFLUXDB } from '../../config/constant';
 
 class MqttService {
+  // 写设备属性
+  async writeDevice(data: any) {
+    // 获取 InfluxDB 客户端的写入 API
+    const writeClient = InfluxClient.client.getWriteApi(INFLUXDB.org, INFLUXDB.bucket, 'ms');
+    try {
+      // 解析 JSON 负载
+      const payload = JSON.parse(data.payload);
+
+      // 判断json层数
+      // 遍历JSON数据
+      for (const key in payload) {
+        const value = payload[key];
+        if (typeof value === 'object') {
+          // 递归处理嵌套的JSON对象
+          // 根据值的类型选择不同的方法添加字段
+          if (typeof value === 'number') {
+            // 创建一个点(measurement为物模型ID, tag为设备ID)
+            // const point = new Point(data.id.split('-')[0]).tag('device_id', data.id.split('-')[1]);
+            //point.floatField(key, value);
+          } else if (typeof value === 'string') {
+            //point.stringField(key, value);
+          }
+        }
+      }
+    } catch (error) {}
+  }
   // 写入设备属性数据
   async writeMessage(data: any) {
-    const org = 'iot';
-    const bucket = 'test';
-
-    console.log('写入数据:', data);
+    const org = INFLUXDB.org;
+    const bucket = INFLUXDB.bucket;
 
     // 获取 InfluxDB 客户端的写入 API
     const writeClient = InfluxClient.client.getWriteApi(org, bucket, 'ns');
@@ -54,4 +79,25 @@ class MqttService {
   }
 }
 
+// 计算对象的深度
+const calculateDepth = (obj) => {
+  // 如果传入的不是对象，则返回 0
+  if (typeof obj !== 'object') return 0;
+
+  let maxDepth = 0;
+
+  // 遍历对象的每个键值对
+  for (const key in obj) {
+    // 递归调用 calculateDepth 函数，计算子对象的深度
+    let depth = calculateDepth(obj[key]);
+
+    // 更新最大深度
+    if (depth > maxDepth) {
+      maxDepth = depth;
+    }
+  }
+
+  // 返回最大深度加 1（因为当前层也算一层）
+  return maxDepth + 1;
+};
 export default new MqttService();

@@ -1,6 +1,5 @@
 import { SUCCESS, PARAM_NOT_VALID } from '../../config/code/responseCode';
 //import { bigIntToString } from '../utils/util';
-
 import Service from './emqx.service';
 import DeviceService from '../../services/device.service';
 
@@ -32,16 +31,18 @@ class HookController {
 
     const { event } = ctx.request.body;
     switch (event) {
-      case 'client.connected':
+      case 'client.connected': {
         console.log('事件: 连接建立');
         // 更新设备状态
-        DeviceService.updateStatus(ctx, +ctx.request.body.username, 1);
+        DeviceService.updateStatus(ctx, Number(ctx.request.body.username.split('-')[1]), 1);
         break;
-      case 'client.disconnected':
+      }
+      case 'client.disconnected': {
         console.log('事件: 连接断开');
         // 更新设备状态
-        DeviceService.updateStatus(ctx, +ctx.request.body.username, 2);
+        DeviceService.updateStatus(ctx, Number(ctx.request.body.username.split('-')[1]), 2);
         break;
+      }
       case 'client.connack':
         //console.log('事件: 连接确认');
         break;
@@ -54,17 +55,16 @@ class HookController {
       case 'session.unsubscribed':
         //console.log('事件: 会话取消订阅完成');
         break;
-      case 'message.publish':
+      case 'message.publish': {
         //console.log('事件: 消息发布');
         // 获取发布者
-        const { clientid } = ctx.request.body;
-        // 获取消息内容
-        const { topic, payload } = ctx.request.body;
+        const { id, payload } = ctx.request.body;
         //console.log(clientid, topic, payload);
         // 写入数据库
-        await Service.writeMessage({ clientid, topic, payload });
-
+        await Service.writeMessage({ id, payload });
         break;
+      }
+
       case 'message.delivered':
         //console.log('事件: 消息已投递');
         break;
