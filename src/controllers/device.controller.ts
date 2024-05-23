@@ -45,7 +45,7 @@ class DeviceModelController {
 
   //查询全部
   async getAll(ctx: any, next: any) {
-    console.log('查询全部物模型');
+    //console.log('查询全部物模型');
     const result = await DeviceService.getAll(ctx);
     await SUCCESS(ctx, bigIntToString(result), '查询全部物模型成功');
   }

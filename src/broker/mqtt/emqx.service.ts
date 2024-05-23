@@ -11,25 +11,61 @@ class MqttService {
     try {
       // 解析 JSON 负载
       const payload = JSON.parse(data.payload);
-
       // 判断json层数
-      // 遍历JSON数据
-      for (const key in payload) {
-        const value = payload[key];
-        if (typeof value === 'object') {
-          // 递归处理嵌套的JSON对象
-          // 根据值的类型选择不同的方法添加字段
-          if (typeof value === 'number') {
-            // 创建一个点(measurement为物模型ID, tag为设备ID)
-            // const point = new Point(data.id.split('-')[0]).tag('device_id', data.id.split('-')[1]);
-            //point.floatField(key, value);
-          } else if (typeof value === 'string') {
-            //point.stringField(key, value);
+      const deep = calculateDepth(payload);
+      switch (deep) {
+        case 1: {
+          console.log("存储数据1")
+          //创建一个点(measurement为物模型ID, tag为设备ID)
+          const point = new Point(data.id.split('-')[0]).tag('device_id', data.id.split('-')[1]);
+          // 遍历 JSON 负载中的字段并将其作为字段添加到点中
+          for (const key in payload) {
+            const value = payload[key];
+            // 根据值的类型选择不同的方法添加字段
+            if (typeof value === 'number') {
+              point.floatField(key, value);
+            } else if (typeof value === 'string') {
+              point.stringField(key, value);
+            }
+          }
+          // 将点写入数据库
+          writeClient.writePoint(point);
+          // 刷新缓存以确保数据写入数据库
+          writeClient.flush();
+          break;
+        }
+        case 2: {
+          console.log("存储数据2")
+          // 遍历数据
+          for (const id in payload) {
+            const value = payload[id];
+            //创建一个点(measurement为物模型ID, tag为设备ID)
+            const point = new Point(id.split('-')[0]).tag('device_id', id.split('-')[1]);
+            for (const key in value) {
+              const data = value[key];
+              // 根据值的类型选择不同的方法添加字段
+              if (typeof value === 'number') {
+                point.floatField(key, data);
+              } else if (typeof value === 'string') {
+                point.stringField(key, data);
+              }
+            }
+            // 将点写入数据库
+            writeClient.writePoint(point);
+            // 刷新缓存以确保数据写入数据库
+            writeClient.flush();
+            break;
           }
         }
+        default: {
+          break;
+        }
       }
-    } catch (error) {}
+    } catch (error) {
+      console.log('数据库错误', error);
+    }
   }
+
   // 写入设备属性数据
   async writeMessage(data: any) {
     const org = INFLUXDB.org;
@@ -80,7 +116,7 @@ class MqttService {
 }
 
 // 计算对象的深度
-const calculateDepth = (obj) => {
+const calculateDepth = (obj: any) => {
   // 如果传入的不是对象，则返回 0
   if (typeof obj !== 'object') return 0;
 
