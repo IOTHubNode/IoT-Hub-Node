@@ -5,108 +5,54 @@ import { INFLUXDB } from '../../config/constant';
 
 class MqttService {
   // 写设备属性
-  async writeDevice(data: any) {
+  async writeDevice(ctx: any, DeviceModelId: string, DeviceId: string, PayLoad: JSON) {
     // 获取 InfluxDB 客户端的写入 API
     const writeClient = InfluxClient.client.getWriteApi(INFLUXDB.org, INFLUXDB.bucket, 'ms');
+    let point:any
     try {
-      // 解析 JSON 负载
-      const payload = JSON.parse(data.payload);
-      // 判断json层数
-      const deep = calculateDepth(payload);
-      switch (deep) {
+      // 不同层数分层处理
+      switch (calculateDepth(PayLoad)) {
         case 1: {
-          console.log("存储数据1")
           //创建一个点(measurement为物模型ID, tag为设备ID)
-          const point = new Point(data.id.split('-')[0]).tag('device_id', data.id.split('-')[1]);
+          point = new Point(DeviceModelId).tag('device_id', DeviceId);
           // 遍历 JSON 负载中的字段并将其作为字段添加到点中
-          for (const key in payload) {
-            const value = payload[key];
+          for (const key in PayLoad) {
+            const value = PayLoad[key];
             // 根据值的类型选择不同的方法添加字段
             if (typeof value === 'number') {
-              point.floatField(key, value);
+              point.floatField(key.toString(), value);
             } else if (typeof value === 'string') {
-              point.stringField(key, value);
+              point.stringField(key.toString(), value);
             }
           }
           // 将点写入数据库
           writeClient.writePoint(point);
-          // 刷新缓存以确保数据写入数据库
-          writeClient.flush();
           break;
         }
         case 2: {
-          console.log("存储数据2")
           // 遍历数据
-          for (const id in payload) {
-            const value = payload[id];
+          for (const id in PayLoad) {
+            const value = PayLoad[id];
             //创建一个点(measurement为物模型ID, tag为设备ID)
-            const point = new Point(id.split('-')[0]).tag('device_id', id.split('-')[1]);
+            point = new Point(id.split('-')[0].toString()).tag('device_id', id.split('-')[1].toString());
             for (const key in value) {
               const data = value[key];
               // 根据值的类型选择不同的方法添加字段
-              if (typeof value === 'number') {
-                point.floatField(key, data);
-              } else if (typeof value === 'string') {
-                point.stringField(key, data);
+              if (typeof data === 'number') {
+                point.floatField(key.toString(), data);
+              } else if (typeof data === 'string') {
+                point.stringField(key.toString(), data);
               }
             }
             // 将点写入数据库
             writeClient.writePoint(point);
-            // 刷新缓存以确保数据写入数据库
-            writeClient.flush();
-            break;
           }
+          break;
         }
         default: {
           break;
         }
       }
-    } catch (error) {
-      console.log('数据库错误', error);
-    }
-  }
-
-  // 写入设备属性数据
-  async writeMessage(data: any) {
-    const org = INFLUXDB.org;
-    const bucket = INFLUXDB.bucket;
-
-    // 获取 InfluxDB 客户端的写入 API
-    const writeClient = InfluxClient.client.getWriteApi(org, bucket, 'ns');
-
-    try {
-      // 创建一个点
-      const point = new Point('test').tag('clientid', data.clientid).tag('topic', data.topic);
-
-      // 解析 JSON 负载
-      const payload = JSON.parse(data.payload);
-
-      // 遍历 JSON 负载中的字段并将其作为字段添加到点中
-      for (const key in payload) {
-        const value = payload[key];
-
-        // 根据值的类型选择不同的方法添加字段
-        if (typeof value === 'number') {
-          point.floatField(key, value);
-        } else if (typeof value === 'string') {
-          // 将字符串字段解析为合适的数据类型
-          if (value.endsWith('%')) {
-            // 将百分比字符串转换为数字
-            const numValue = parseFloat(value.replace('%', ''));
-            point.floatField(key, numValue);
-          } else if (value.endsWith('°C') || value.endsWith('mv')) {
-            // 去除后缀并转换为数字
-            const numValue = parseFloat(value);
-            point.floatField(key, numValue);
-          } else {
-            point.stringField(key, value);
-          }
-        }
-      }
-
-      // 将点写入数据库
-      writeClient.writePoint(point);
-
       // 刷新缓存以确保数据写入数据库
       writeClient.flush();
     } catch (error) {

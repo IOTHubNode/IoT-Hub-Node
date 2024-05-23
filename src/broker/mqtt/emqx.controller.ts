@@ -58,11 +58,14 @@ class HookController {
       case 'message.publish': {
         //console.log('事件: 消息发布');
         // 获取发布者
-        const { id, payload, topic } = ctx.request.body;
-        
+        const { username, payload, topic } = ctx.request.body;
+        const DeviceModelId = username.split('-')[0];
+        const DeviceId = username.split('-')[0]
+        // 解析 JSON 负载
+        const PayLoad = JSON.parse(payload);
         if (topic == 'monitor') { 
           // 写入数据库
-          await Service.writeDevice({ id, payload });
+          await Service.writeDevice(ctx, DeviceModelId.toString(), DeviceId.toString(), PayLoad );
         }
         break;
       }
