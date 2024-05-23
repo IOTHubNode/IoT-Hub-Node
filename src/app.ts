@@ -77,8 +77,8 @@ printLogo();
 // https 服务
 const httpsPort = PORT.https;
 const ACoptions = {
-  key: fs.readFileSync(path.resolve(__dirname, './config/assets/duruofu.xyz.key')), // SSL私钥文件路径
-  cert: fs.readFileSync(path.resolve(__dirname, './config/assets/duruofu.xyz_bundle.crt')), // SSL证书文件路径
+  key: fs.readFileSync(path.resolve(__dirname, './config/assets/example.com.key')), // SSL私钥文件路径
+  cert: fs.readFileSync(path.resolve(__dirname, './config/assets/example.com_bundle.crt')), // SSL证书文件路径
 };
 const httpsServer = https.createServer(ACoptions, app.callback());
 httpsServer.listen(httpsPort);
