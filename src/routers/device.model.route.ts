@@ -149,4 +149,45 @@ router.get('/devicemodels', Controller.getAll);
 // #endregion
 router.get('/devicemodel/:id', Controller.getModelData);
 
+//#region 查询某个物模型下的设备列表
+/**
+ * @swagger
+ * /d_model/{id}/devices:
+ *   get:
+ *     summary: 查询某个物模型下的设备列表
+ *     description: 查询某个物模型下的设备列表
+ *     tags: [物模型管理]
+ *     parameters: # 请求参数：
+ *      - name: id
+ *        description: 物模型id
+ *        in: path
+ *        required: true
+ *     responses:
+ *       "200":
+ *         description: OK
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                code:
+ *                 type: number
+ *                 description: 状态码
+ *                 example: 200
+ *                massage:
+ *                 type: string
+ *                 description: 信息
+ *                 example: 添加物模型成功
+ *                data:
+ *                 type: object
+ *                 description: 用户信息
+ *                 example: {"code":200,"msg":"查询某个物模型下的设备列表成功","data":[{"Device":[{"DeviceId":"7","Name":"环境节点-1","Description":""},{"DeviceId":"8","Name":"环境节点-2","Description":""}]}]}
+ *     security:
+ *      - token: {}
+ *      - server_auth:
+ *        - authorization
+ */
+// #endregion
+router.get('/:id/devices', Controller.getDevicesData);
+
 export default router;

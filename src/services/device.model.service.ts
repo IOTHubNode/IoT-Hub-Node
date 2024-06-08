@@ -126,6 +126,31 @@ class DeviceModelService {
       await DB_FAIL(ctx);
     }
   }
+
+  // 查询某个物模型下的设备列表
+  async getDevicesData(ctx: any, id: number) {
+    console.log('查询某个物模型下的设备列表');
+    try {
+      const result = await prisma.deviceModel.findMany({
+        where: {
+          DeviceModelId: id,
+        },
+        select: {
+          Device: {
+            select: {
+              DeviceId: true,
+              Name: true,
+              Description: true,
+            },
+          },
+        },
+      });
+
+      return result;
+    } catch (error) {
+      console.log(error);
+    }
+  }
 }
 
 export default new DeviceModelService();
