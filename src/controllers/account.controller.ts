@@ -1,4 +1,4 @@
-//这个文件用户管理接口的业务逻辑
+//这文件用户管理接口的业务逻辑
 import AccountService from '../services/account.service';
 import { bigIntToString } from '../utils/util';
 import { hashPassword } from '../utils/crypto';
@@ -232,10 +232,10 @@ class AccountController {
     // 查询前端权限
     // 查询角色值对应的权限值
     const Permissions = await Casbin.getPermissionsForUser(role.toString());
-    console.log(Permissions);
+    //console.log(Permissions);
     // 查询权限值对应的ID
     const data = await AccountService.getPermissionsIdByValue(ctx, Permissions);
-    console.log(data);
+    //console.log(data);
     // 为resz添加roles
     res.Roles = role;
     res.Routes = data;

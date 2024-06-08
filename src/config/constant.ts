@@ -37,7 +37,7 @@ export const INFLUXDB = {
   url: process.env.INFLUXDB_URL || 'http://localhost:8086',
   token: process.env.INFLUXDB_TOKEN || '',
   org: process.env.INFLUX_ORG || 'iot',
-  bucket: process.env.INFLUXDB_BUCKET || 'test',
+  bucket: process.env.INFLUXDB_BUCKET || 'iot_hub_node',
 };
 
 // 开放路由(不用jwt验证)

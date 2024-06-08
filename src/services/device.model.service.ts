@@ -5,7 +5,17 @@ const prisma = new PrismaClient();
 
 class DeviceModelService {
   // 添加物模型
-  async add(ctx: any, Name: string, Description: string, ConnectType: number, CommunicationType: number, ProtocolType: number, Content: any, Image: string, CreatedBy: string) {
+  async add(
+    ctx: any,
+    Name: string,
+    Description: string,
+    ConnectType: number,
+    CommunicationType: number,
+    ProtocolType: number,
+    Content: any,
+    Image: string,
+    CreatedBy: string
+  ) {
     console.log('添加物模型');
     try {
       const result = await prisma.deviceModel.create({
@@ -41,8 +51,25 @@ class DeviceModelService {
           ConnectType: true,
           CreatedTime: true,
           UpdatedTime: true,
+          Device: {
+            // 查询总数
+            select: {
+              DeviceId: true,
+            },
+          },
         },
       });
+
+      // 优化返回值格式
+      const data = result.map((model) => {
+        return {
+          ...model,
+          Device: model.Device.map((device) => Number(device.DeviceId)),
+        };
+      });
+
+      return data;
+
       return result;
     } catch (error) {
       console.log(error);
@@ -67,6 +94,14 @@ class DeviceModelService {
           Content: true,
           CreatedTime: true,
           UpdatedTime: true,
+
+          Device: {
+            select: {
+              DeviceId: true,
+              Name: true,
+              Description: true,
+            },
+          },
         },
       });
       return result;
