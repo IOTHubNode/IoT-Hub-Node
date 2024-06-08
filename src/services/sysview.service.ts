@@ -2,7 +2,7 @@ import { PrismaClient } from '@prisma/client';
 import { DB_FAIL } from '../config/code/responseCode';
 const prisma = new PrismaClient();
 
-class SysViewService {
+class ExampleService {
   // 增
   async createExample(ctx, Name: string, Password: string, Email: string, Phone: string) {
     try {
@@ -64,4 +64,4 @@ class SysViewService {
   }
 }
 
-export default new SysViewService();
+export default new ExampleService();
