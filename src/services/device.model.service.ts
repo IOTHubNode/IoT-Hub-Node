@@ -141,11 +141,19 @@ class DeviceModelService {
               DeviceId: true,
               Name: true,
               Description: true,
+              Status: true,
+              IsDisabled: true,
+              Token: true,
+              CreatedTime: true,
+              Account: {
+                select: {
+                  Name: true,
+                },
+              },
             },
           },
         },
       });
-
       return result;
     } catch (error) {
       console.log(error);
