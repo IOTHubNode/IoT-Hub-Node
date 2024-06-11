@@ -1,6 +1,5 @@
 import { PrismaClient } from '@prisma/client';
 import { DB_FAIL } from '../config/code/responseCode';
-
 const prisma = new PrismaClient();
 
 class DeviceModelService {
@@ -18,19 +17,36 @@ class DeviceModelService {
   ) {
     console.log('添加物模型');
     try {
-      const result = await prisma.deviceModel.create({
-        data: {
-          Name: Name,
-          Description: Description,
-          ConnectType: +ConnectType,
-          CommunicationType: +CommunicationType,
-          ProtocolType: +ProtocolType,
-          Content: Content,
-          Image: Image,
-          CreatedBy: CreatedBy,
-          UpdatedBy: CreatedBy,
-        },
+      const result = await prisma.$transaction(async (prisma) => {
+        // 添加设备模型
+        const newDeviceModel = await prisma.deviceModel.create({
+          data: {
+            Name: Name,
+            Description: Description,
+            ConnectType: +ConnectType,
+            CommunicationType: +CommunicationType,
+            ProtocolType: +ProtocolType,
+            Content: JSON.stringify(Content), // 确保 Content 是 JSON 字符串
+            Image: Image,
+            CreatedBy: CreatedBy,
+            UpdatedBy: CreatedBy,
+          },
+        });
+
+        // 更新 Content 字段中的 productKey
+        const updatedContent = JSON.parse(newDeviceModel.Content);
+        updatedContent.productKey = String(newDeviceModel.DeviceModelId);
+
+        const updatedDeviceModel = await prisma.deviceModel.update({
+          where: { DeviceModelId: newDeviceModel.DeviceModelId }, // 这里指定了要更新的设备模型的 id
+          data: {
+            Content: updatedContent, // 直接传入更新后的对象
+          },
+        });
+
+        return updatedDeviceModel;
       });
+
       return result;
     } catch (error) {
       console.log(error);
@@ -108,6 +124,39 @@ class DeviceModelService {
     } catch (error) {
       console.log(error);
       await DB_FAIL(ctx);
+    }
+  }
+
+  // 查询某个物模型下的设备列表
+  async getDevicesData(ctx: any, id: number) {
+    console.log('查询某个物模型下的设备列表');
+    try {
+      const result = await prisma.deviceModel.findMany({
+        where: {
+          DeviceModelId: id,
+        },
+        select: {
+          Device: {
+            select: {
+              DeviceId: true,
+              Name: true,
+              Description: true,
+              Status: true,
+              IsDisabled: true,
+              Token: true,
+              CreatedTime: true,
+              Account: {
+                select: {
+                  Name: true,
+                },
+              },
+            },
+          },
+        },
+      });
+      return result;
+    } catch (error) {
+      console.log(error);
     }
   }
 }

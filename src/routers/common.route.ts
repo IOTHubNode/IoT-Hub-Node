@@ -20,7 +20,6 @@ const router = new Router({ prefix: '/v1/util' });
  *   description: 用于测试最基本的路由功能
  */
 
-
 /**
  * @swagger
  * /util/local_picture:

@@ -78,5 +78,15 @@ class DeviceModelController {
     }
     await SUCCESS(ctx, bigIntToString(result), '查询某个物模型成功');
   }
+
+  // 查询某个物模型下的设备列表
+  async getDevicesData(ctx: any, next: any) {
+    const { id } = ctx.params;
+    const result = await DeviceModelService.getDevicesData(ctx, id);
+    if (!result) {
+      await PARAM_NOT_VALID(ctx, '查询的物模型不存在');
+    }
+    await SUCCESS(ctx, bigIntToString(result), '查询某个物模型下的设备列表成功');
+  }
 }
 export default new DeviceModelController();
