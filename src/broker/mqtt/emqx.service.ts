@@ -29,7 +29,7 @@ class MqttService {
   // 写设备属性
   async writeDevice(ctx: any, DeviceModelId: string, DeviceId: string, PayLoad: JSON) {
     // 获取 InfluxDB 客户端的写入 API
-    const writeClient = InfluxClient.client.getWriteApi(INFLUXDB.org, INFLUXDB.bucket, 'ms');
+    const writeClient = InfluxClient.client.getWriteApi(INFLUXDB.org, INFLUXDB.bucket, 'ns');
     let point: any;
     try {
       // 不同层数分层处理
@@ -49,6 +49,7 @@ class MqttService {
           }
           // 将点写入数据库
           writeClient.writePoint(point);
+          console.log(point);
           break;
         }
         case 2: {
@@ -68,7 +69,9 @@ class MqttService {
             }
             // 将点写入数据库
             writeClient.writePoint(point);
+            console.log(point);
           }
+
           break;
         }
         default: {

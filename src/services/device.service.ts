@@ -1,5 +1,8 @@
 import { PrismaClient } from '@prisma/client';
 import { DB_FAIL } from '../config/code/responseCode';
+import { INFLUXDB } from '../config/constant';
+import InfluxClient from '../db/influx/index';
+
 const prisma = new PrismaClient();
 
 class DeviceService {
@@ -120,6 +123,69 @@ class DeviceService {
     } catch (error) {
       console.log(error);
       await DB_FAIL(ctx);
+    }
+  }
+
+  // 查询设备最近数据
+  async getAttributeData(ctx: any, id: number): Promise<any[]> {
+    try {
+      // 查询设备物模型ID
+      const result = await prisma.device.findUnique({
+        where: {
+          DeviceId: id,
+          IsDeleted: false,
+        },
+        select: {
+          DeviceModelId: true,
+        },
+      });
+
+      if (!result || !result.DeviceModelId) {
+        await DB_FAIL(ctx);
+        return [];
+      }
+
+      const deviceModelId = result.DeviceModelId;
+
+      // 查询时序数据库
+      const queryClient = InfluxClient.client.getQueryApi(INFLUXDB.bucket);
+
+      // 构建查询字符串
+      const fluxQuery = `
+      from(bucket: "${INFLUXDB.bucket}")
+        |> range(start: -24h)
+        |> filter(fn: (r) => r._measurement == "${deviceModelId}")
+        |> filter(fn: (r) => r.device_id == "${id}")
+        |> limit(n: 50)
+    `;
+
+      return new Promise((resolve, reject) => {
+        const results: any[] = [];
+
+        // 执行查询
+        queryClient.queryRows(fluxQuery, {
+          next(row: any, tableMeta: any) {
+            const o = tableMeta.toObject(row);
+            const dataPoint = {
+              time: o._time,
+              field: o._field,
+              value: o._value,
+            };
+            results.push(dataPoint);
+          },
+          error(error: any) {
+            console.error('InfluxDB query error:', error);
+            reject(error);
+          },
+          complete() {
+            resolve(results);
+          },
+        });
+      });
+    } catch (error) {
+      console.error('Database query error:', error);
+      await DB_FAIL(ctx);
+      throw error; // 确保错误被抛出
     }
   }
 }

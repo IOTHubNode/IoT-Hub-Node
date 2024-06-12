@@ -36,7 +36,7 @@ export const PORT = {
 export const INFLUXDB = {
   url: process.env.INFLUXDB_URL || 'http://localhost:8086',
   token: process.env.INFLUXDB_TOKEN || '',
-  org: process.env.INFLUX_ORG || 'iot',
+  org: process.env.INFLUXDB_ORG || 'iot',
   bucket: process.env.INFLUXDB_BUCKET || 'iot_hub_node',
 };
 

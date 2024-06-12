@@ -3,6 +3,7 @@ import DeviceService from '../services/device.service';
 import { bigIntToString } from '../utils/util';
 import { JWT, DEFAULT_AVATAR, SALT, DEFAULT_ROLE } from '../config/constant';
 import { SUCCESS, PARAM_NOT_VALID } from '../config/code/responseCode';
+import { formatISO, parseISO } from 'date-fns';
 
 class DeviceModelController {
   // 添加
@@ -58,6 +59,26 @@ class DeviceModelController {
       await PARAM_NOT_VALID(ctx, '查询的设备不存在');
     }
     await SUCCESS(ctx, bigIntToString(result), '查询某个设备成功');
+  }
+
+  // 查询某个设备存储的属性信息
+  async getAttributeData(ctx: any, next: any) {
+    const { id } = ctx.params;
+    const results = await DeviceService.getAttributeData(ctx, id);
+    // 查询设备物模型ID
+    console.log(results);
+    // 将结果根据 field 分类且格式化时间
+    const groupedResults = results.reduce((acc, curr) => {
+      const { field, time, ...rest } = curr;
+      const formattedTime = formatISO(parseISO(time), { representation: 'date' }) + ' ' + time.split('T')[1].split('Z')[0]; // 格式化时间
+      if (!acc[field]) {
+        acc[field] = [];
+      }
+      acc[field].push({ field, time: formattedTime, ...rest });
+      return acc;
+    }, {});
+    console.log(groupedResults);
+    await SUCCESS(ctx, bigIntToString(groupedResults), '查询设备属性成功');
   }
 }
 export default new DeviceModelController();

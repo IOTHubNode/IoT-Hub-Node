@@ -62,7 +62,7 @@ class HookController {
         //console.log('事件: 会话取消订阅完成');
         break;
       case 'message.publish': {
-        //console.log('事件: 消息发布');
+        console.log('事件: 消息发布');
         // 获取发布者
         const { username, payload, topic } = ctx.request.body;
         const DeviceModelId = username.split('-')[0];
