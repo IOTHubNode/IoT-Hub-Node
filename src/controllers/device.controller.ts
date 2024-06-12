@@ -40,14 +40,14 @@ class DeviceModelController {
     const CreatedBy = AccountId;
 
     const result = await DeviceService.add(ctx, Name, Description, DeviceModelId, DeviceGroupId, OrganizationId, AccountId, CreatedBy);
-    await SUCCESS(ctx, bigIntToString(result), '添加物模型成功');
+    await SUCCESS(ctx, bigIntToString(result), '添加设备成功');
   }
 
   //查询全部
   async getAll(ctx: any, next: any) {
     //console.log('查询全部物模型');
     const result = await DeviceService.getAll(ctx);
-    await SUCCESS(ctx, bigIntToString(result), '查询全部物模型成功');
+    await SUCCESS(ctx, bigIntToString(result), '查询全部设备成功');
   }
 
   //查询某个

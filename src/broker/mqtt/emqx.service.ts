@@ -1,14 +1,36 @@
 import { Point } from '@influxdata/influxdb-client';
 import InfluxClient from '../../db/influx/index';
-import { DB_FAIL } from '../../config/code/responseCode';
+import { DB_FAIL, FAIL } from '../../config/code/responseCode';
 import { INFLUXDB } from '../../config/constant';
-
+import { PrismaClient } from '@prisma/client';
+const prisma = new PrismaClient();
 class MqttService {
+  // 验证设备连接
+  async authDevice(ctx: any, DeviceModelId: string, DeviceId: number, PassWord: string) {
+    try {
+      const result = await prisma.device.findUnique({
+        where: { DeviceId: DeviceId, IsDeleted: false },
+      });
+      if (result) {
+        if (result.Token === PassWord) {
+          return 1;
+        } else {
+          await FAIL(ctx, '设备通行证错误');
+        }
+      } else {
+        await FAIL(ctx, '设备ID未知错误');
+      }
+    } catch (error) {
+      console.log(error);
+      await DB_FAIL(ctx);
+    }
+  }
+
   // 写设备属性
   async writeDevice(ctx: any, DeviceModelId: string, DeviceId: string, PayLoad: JSON) {
     // 获取 InfluxDB 客户端的写入 API
     const writeClient = InfluxClient.client.getWriteApi(INFLUXDB.org, INFLUXDB.bucket, 'ms');
-    let point:any
+    let point: any;
     try {
       // 不同层数分层处理
       switch (calculateDepth(PayLoad)) {
@@ -71,7 +93,7 @@ const calculateDepth = (obj: any) => {
   // 遍历对象的每个键值对
   for (const key in obj) {
     // 递归调用 calculateDepth 函数，计算子对象的深度
-    let depth = calculateDepth(obj[key]);
+    const depth = calculateDepth(obj[key]);
 
     // 更新最大深度
     if (depth > maxDepth) {

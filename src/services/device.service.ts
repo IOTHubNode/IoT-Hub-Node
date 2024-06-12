@@ -71,18 +71,31 @@ class DeviceService {
       const result = await prisma.device.findUnique({
         where: {
           DeviceId: id,
+          IsDeleted: false,
         },
         select: {
           DeviceId: true,
           Name: true,
           Description: true,
-          DeviceModelId: true,
           OrganizationId: true,
-          AccountId: true,
           Status: true,
           Token: true,
           CreatedTime: true,
           UpdatedTime: true,
+          IsDisabled: true,
+          DeviceModel: {
+            select: {
+              DeviceModelId: true,
+              Content: true,
+              Name: true,
+              Image: true,
+            },
+          },
+          Account: {
+            select: {
+              Name: true,
+            },
+          },
         },
       });
       return result;
