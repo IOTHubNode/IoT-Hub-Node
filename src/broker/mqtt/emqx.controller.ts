@@ -11,8 +11,14 @@ class HookController {
     // 获取客户端连接参数
     const { username, password } = ctx.request.body;
 
+    const DeviceModelId = username.split('-')[0];
+    const DeviceId = username.split('-')[1];
+
+    // 查询数据库
+    const res = await Service.authDevice(ctx, DeviceModelId, DeviceId, password);
+
     // 判断用户名和密码是否正确
-    if (username === '111' && password === 'public') {
+    if (res) {
       // 允许连接
       ctx.body = {
         result: 'allow',
@@ -56,16 +62,16 @@ class HookController {
         //console.log('事件: 会话取消订阅完成');
         break;
       case 'message.publish': {
-        //console.log('事件: 消息发布');
+        console.log('事件: 消息发布');
         // 获取发布者
         const { username, payload, topic } = ctx.request.body;
         const DeviceModelId = username.split('-')[0];
-        const DeviceId = username.split('-')[0]
+        const DeviceId = username.split('-')[1];
         // 解析 JSON 负载
         const PayLoad = JSON.parse(payload);
-        if (topic == 'monitor') { 
+        if (topic == 'monitor') {
           // 写入数据库
-          await Service.writeDevice(ctx, DeviceModelId.toString(), DeviceId.toString(), PayLoad );
+          await Service.writeDevice(ctx, DeviceModelId.toString(), DeviceId.toString(), PayLoad);
         }
         break;
       }
