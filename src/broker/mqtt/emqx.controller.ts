@@ -12,7 +12,7 @@ class HookController {
     const { username, password } = ctx.request.body;
 
     const DeviceModelId = username.split('-')[0];
-    const DeviceId = username.split('-')[0];
+    const DeviceId = username.split('-')[1];
 
     // 查询数据库
     const res = await Service.authDevice(ctx, DeviceModelId, DeviceId, password);
@@ -66,7 +66,7 @@ class HookController {
         // 获取发布者
         const { username, payload, topic } = ctx.request.body;
         const DeviceModelId = username.split('-')[0];
-        const DeviceId = username.split('-')[0];
+        const DeviceId = username.split('-')[1];
         // 解析 JSON 负载
         const PayLoad = JSON.parse(payload);
         if (topic == 'monitor') {

@@ -152,8 +152,8 @@ router.get('/device/:id', Controller.getData);
  * @swagger
  * /device/device/{id}/attributes:
  *   get:
- *     summary: 查询某个设备存储的属性信息
- *     description: 查询某个设备存储的属性信息
+ *     summary: 查询某个设备存储的属性信息(默认1天内最新50条)
+ *     description: 查询某个设备存储的属性信息(默认1天内最新50条)
  *     tags: [设备管理]
  *     parameters: # 请求参数：
  *      - name: id
@@ -175,11 +175,10 @@ router.get('/device/:id', Controller.getData);
  *                massage:
  *                 type: string
  *                 description: 信息
- *                 example: 添加物模型成功
+ *                 example: 查询设备属性成功
  *                data:
  *                 type: object
- *                 description: 用户信息
- *                 example: {"OrganizationId": "3","Name": "南方分部","Description": "无","Level": 1,"LevelName": "二级","ParentId": "1","CreatedBy": "4e1bb3f5-8c0b-4573-8e6f-abf93bdc4224","CreatedTime": "2024-03-12T04:41:18.326Z"}
+ *                 description: 数据
  *     security:
  *      - token: {}
  *      - server_auth:

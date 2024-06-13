@@ -110,6 +110,7 @@ class DeviceService {
 
   // 更改设备状态
   async updateStatus(ctx: any, id: number, status: number) {
+    console.log(id);
     try {
       const result = await prisma.device.update({
         where: {

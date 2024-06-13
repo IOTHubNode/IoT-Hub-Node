@@ -6,7 +6,7 @@ import { PrismaClient } from '@prisma/client';
 const prisma = new PrismaClient();
 class MqttService {
   // 验证设备连接
-  async authDevice(ctx: any, DeviceModelId: string, DeviceId: number, PassWord: string) {
+  async authDevice(ctx: any, DeviceModelId: number, DeviceId: number, PassWord: string) {
     try {
       const result = await prisma.device.findUnique({
         where: { DeviceId: DeviceId, IsDeleted: false },
