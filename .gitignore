@@ -1,7 +1,10 @@
-node_modules
-# Keep environment variables out of version control
+node_modules/
+dist/
+coverage/
 .env
-logs/
+.env.local
+data/*.db
+data/*.db-wal
+data/*.db-shm
+.DS_Store
 *.log
-upload/
-src/config/swagger.json

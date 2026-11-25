@@ -1,0 +1,28 @@
+{
+  "name": "@iothub/server",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "tsx watch src/index.ts",
+    "build": "tsc -p tsconfig.json",
+    "start": "node dist/index.js",
+    "typecheck": "tsc -p tsconfig.json --noEmit"
+  },
+  "dependencies": {
+    "@hono/node-server": "^1.13.8",
+    "@hono/zod-validator": "^0.4.3",
+    "@iothub/shared": "workspace:*",
+    "@modelcontextprotocol/sdk": "^1.6.1",
+    "aedes": "^0.51.3",
+    "better-sqlite3": "^11.8.1",
+    "drizzle-orm": "^0.39.3",
+    "hono": "^4.7.2",
+    "ws": "^8.18.0",
+    "zod": "^3.24.2"
+  },
+  "devDependencies": {
+    "@types/better-sqlite3": "^7.6.12",
+    "@types/ws": "^8.5.14"
+  }
+}
