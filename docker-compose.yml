@@ -1,0 +1,15 @@
+services:
+  iot-hub-node:
+    build: .
+    container_name: iot-hub-node
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+      - "1883:1883"
+    environment:
+      - PORT=3000
+      - MQTT_PORT=1883
+      - DATA_DIR=/app/data
+      - JWT_SECRET=${JWT_SECRET:-iothub-change-me-in-production}
+    volumes:
+      - ./data:/app/data
